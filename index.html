@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usman Khan — Academic Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&display=swap"
+    media="print" onload="this.media='all'" rel="stylesheet" />
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&display=swap" />
+  </noscript>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"DM Serif Display"', 'serif'],
+            body: ['"Outfit"', 'sans-serif'],
+          },
+          colors: {
+            accent: { DEFAULT: '#2563EB', dark: '#60A5FA' },
+            surface: { light: '#F8FAFC', dark: '#0B0F1A' },
+            card: { light: '#FFFFFF', dark: '#111827' },
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="relative min-h-screen font-body overflow-hidden">
+
+  <div id="page-loader" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#F8FAFC] dark:bg-[#0B0F1A] transition-opacity duration-700 ease-in-out">
+    <div class="relative w-16 h-16 mb-4">
+      <div class="absolute inset-0 rounded-full border-4 border-slate-200 dark:border-slate-800"></div>
+      <div class="absolute inset-0 rounded-full border-4 border-blue-600 dark:border-blue-400 border-t-transparent animate-spin"></div>
+    </div>
+    <p class="text-sm font-medium text-slate-500 dark:text-slate-400 tracking-widest uppercase animate-pulse">
+      Loading Portfolio...
+    </p>
+  </div>
+  <div id="starCanvas" class="star-canvas"></div>
+
+  <div class="cloud-canvas">
+    <svg class="cloud-svg cloud-svg--1" viewBox="0 0 480 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M470 145 C470 145 475 100 440 90 C440 50 400 20 360 35 C340 5 290 -5 255 15 C230 -5 190 -10 160 15 C140 0 110 5 95 25 C60 15 25 35 20 70 C-5 75 0 110 15 130 C5 145 10 155 30 160 L460 160 Z"
+        fill="#F8FAFF" />
+      <path
+        d="M470 145 C470 145 475 100 440 90 C440 50 400 20 360 35 C340 5 290 -5 255 15 C230 -5 190 -10 160 15 C140 0 110 5 95 25 C60 15 25 35 20 70 C-5 75 0 110 15 130 C5 145 10 155 30 160 L460 160 Z"
+        fill="white" fill-opacity="0.7" />
+    </svg>
+
+    <svg class="cloud-svg cloud-svg--2" viewBox="0 0 380 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M370 125 C375 85 350 65 320 70 C315 35 280 15 245 30 C225 5 185 0 155 20 C130 5 100 15 85 35 C55 25 25 45 25 75 C5 80 -2 105 15 125 L365 125 Z"
+        fill="#F5F8FE" />
+      <path
+        d="M370 125 C375 85 350 65 320 70 C315 35 280 15 245 30 C225 5 185 0 155 20 C130 5 100 15 85 35 C55 25 25 45 25 75 C5 80 -2 105 15 125 L365 125 Z"
+        fill="white" fill-opacity="0.65" />
+    </svg>
+
+    <svg class="cloud-svg cloud-svg--3" viewBox="0 0 300 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M290 88 C295 60 275 45 250 50 C245 25 215 10 185 25 C165 8 140 12 125 28 C100 18 75 30 70 55 C50 52 35 65 40 85 L285 85 Z"
+        fill="#F0F5FD" />
+      <path
+        d="M290 88 C295 60 275 45 250 50 C245 25 215 10 185 25 C165 8 140 12 125 28 C100 18 75 30 70 55 C50 52 35 65 40 85 L285 85 Z"
+        fill="white" fill-opacity="0.6" />
+    </svg>
+
+    <svg class="cloud-svg cloud-svg--4" viewBox="0 0 440 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M430 115 C435 80 415 60 385 65 C375 35 340 18 305 30 C285 8 250 2 220 18 C195 2 160 8 140 28 C115 15 85 25 75 48 C45 40 18 58 20 85 C5 88 -2 105 12 115 L425 115 Z"
+        fill="#EEF3FC" />
+      <path
+        d="M430 115 C435 80 415 60 385 65 C375 35 340 18 305 30 C285 8 250 2 220 18 C195 2 160 8 140 28 C115 15 85 25 75 48 C45 40 18 58 20 85 C5 88 -2 105 12 115 L425 115 Z"
+        fill="white" fill-opacity="0.55" />
+    </svg>
+
+    <svg class="cloud-svg cloud-svg--5" viewBox="0 0 360 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M350 58 C355 38 335 28 310 32 C300 18 270 12 245 22 C228 12 205 15 192 25 C175 15 150 18 140 30 C120 22 95 28 88 42 C70 38 50 45 52 58 L345 58 Z"
+        fill="#ECF1FB" />
+      <path
+        d="M350 58 C355 38 335 28 310 32 C300 18 270 12 245 22 C228 12 205 15 192 25 C175 15 150 18 140 30 C120 22 95 28 88 42 C70 38 50 45 52 58 L345 58 Z"
+        fill="white" fill-opacity="0.5" />
+    </svg>
+
+    <svg class="cloud-svg cloud-svg--6" viewBox="0 0 520 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M510 160 C515 115 485 90 450 95 C445 55 405 25 365 40 C345 8 295 -5 255 18 C230 -8 185 -12 155 15 C130 -2 100 8 82 30 C50 18 15 42 18 80 C-5 85 -8 115 12 135 C2 148 8 158 28 165 L505 165 Z"
+        fill="#F8FAFF" />
+      <path
+        d="M510 160 C515 115 485 90 450 95 C445 55 405 25 365 40 C345 8 295 -5 255 18 C230 -8 185 -12 155 15 C130 -2 100 8 82 30 C50 18 15 42 18 80 C-5 85 -8 115 12 135 C2 148 8 158 28 165 L505 165 Z"
+        fill="white" fill-opacity="0.7" />
+    </svg>
+  </div>
+
+  <div class="glow-blob light-only" style="width:500px;height:500px;top:-100px;right:-100px;background:#BFDBFE;"></div>
+  <div class="glow-blob light-only" style="width:400px;height:400px;bottom:10%;left:-80px;background:#DDD6FE;"></div>
+  <div class="glow-blob dark-only" style="width:500px;height:500px;top:-120px;right:-80px;background:#1E3A8A;"></div>
+  <div class="glow-blob dark-only" style="width:400px;height:400px;bottom:5%;left:-100px;background:#4C1D95;"></div>
+
+  <div class="meteor-canvas" id="meteorCanvas"></div>
+
+  <div class="planet-canvas">
+    <div class="planet planet--saturn"></div>
+    <div class="planet planet--moon"></div>
+    <div class="planet planet--neptune"></div>
+    <div class="planet planet--mars"></div>
+    <div class="planet planet--distant"></div>
+  </div>
+
+  <div class="grain-overlay"></div>
+
+  <div class="grass-canvas">
+    <svg viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <rect y="55" width="1200" height="30" fill="#4ADE80" opacity="0.35" />
+      <rect y="62" width="1200" height="22" fill="#22C55E" opacity="0.3" />
+
+      <g fill="#16A34A" opacity="0.5">
+        <path d="M0,80 L0,52 Q2,30 5,52 L5,80Z" />
+        <path d="M18,80 L18,48 Q21,22 24,48 L24,80Z" />
+        <path d="M40,80 L40,50 Q42,28 45,50 L45,80Z" />
+        <path d="M62,80 L62,45 Q65,20 68,46 L68,80Z" />
+        <path d="M85,80 L85,50 Q87,30 90,50 L90,80Z" />
+        <path d="M108,80 L108,46 Q111,18 114,47 L114,80Z" />
+        <path d="M132,80 L132,50 Q134,28 137,50 L137,80Z" />
+        <path d="M155,80 L155,44 Q158,16 161,45 L161,80Z" />
+        <path d="M178,80 L178,48 Q180,26 183,49 L183,80Z" />
+        <path d="M202,80 L202,50 Q205,30 208,50 L208,80Z" />
+        <path d="M225,80 L225,46 Q228,20 231,47 L231,80Z" />
+        <path d="M250,80 L250,50 Q252,32 255,50 L255,80Z" />
+        <path d="M275,80 L275,44 Q278,18 281,45 L281,80Z" />
+        <path d="M298,80 L298,48 Q300,25 303,49 L303,80Z" />
+        <path d="M322,80 L322,50 Q325,28 328,50 L328,80Z" />
+        <path d="M348,80 L348,46 Q351,20 354,47 L354,80Z" />
+        <path d="M372,80 L372,50 Q374,30 377,50 L377,80Z" />
+        <path d="M395,80 L395,44 Q398,16 401,45 L401,80Z" />
+        <path d="M420,80 L420,48 Q422,24 425,49 L425,80Z" />
+        <path d="M445,80 L445,50 Q448,30 451,50 L451,80Z" />
+        <path d="M468,80 L468,46 Q471,18 474,47 L474,80Z" />
+        <path d="M492,80 L492,50 Q494,28 497,50 L497,80Z" />
+        <path d="M518,80 L518,44 Q521,16 524,45 L524,80Z" />
+        <path d="M542,80 L542,48 Q544,26 547,49 L547,80Z" />
+        <path d="M565,80 L565,50 Q568,30 571,50 L571,80Z" />
+        <path d="M590,80 L590,46 Q593,20 596,47 L596,80Z" />
+        <path d="M615,80 L615,50 Q617,28 620,50 L620,80Z" />
+        <path d="M638,80 L638,44 Q641,16 644,45 L644,80Z" />
+        <path d="M662,80 L662,48 Q664,24 667,49 L667,80Z" />
+        <path d="M688,80 L688,50 Q691,30 694,50 L694,80Z" />
+        <path d="M712,80 L712,46 Q715,18 718,47 L718,80Z" />
+        <path d="M735,80 L735,50 Q737,28 740,50 L740,80Z" />
+        <path d="M760,80 L760,44 Q763,16 766,45 L766,80Z" />
+        <path d="M785,80 L785,48 Q787,26 790,49 L790,80Z" />
+        <path d="M808,80 L808,50 Q811,30 814,50 L814,80Z" />
+        <path d="M832,80 L832,46 Q835,20 838,47 L838,80Z" />
+        <path d="M858,80 L858,50 Q860,28 863,50 L863,80Z" />
+        <path d="M882,80 L882,44 Q885,16 888,45 L888,80Z" />
+        <path d="M905,80 L905,48 Q907,24 910,49 L910,80Z" />
+        <path d="M930,80 L930,50 Q933,30 936,50 L936,80Z" />
+        <path d="M955,80 L955,46 Q958,18 961,47 L961,80Z" />
+        <path d="M978,80 L978,50 Q980,28 983,50 L983,80Z" />
+        <path d="M1002,80 L1002,44 Q1005,16 1008,45 L1008,80Z" />
+        <path d="M1028,80 L1028,48 Q1030,26 1033,49 L1033,80Z" />
+        <path d="M1052,80 L1052,50 Q1055,30 1058,50 L1058,80Z" />
+        <path d="M1078,80 L1078,46 Q1081,20 1084,47 L1084,80Z" />
+        <path d="M1102,80 L1102,50 Q1104,28 1107,50 L1107,80Z" />
+        <path d="M1128,80 L1128,44 Q1131,16 1134,45 L1134,80Z" />
+        <path d="M1155,80 L1155,48 Q1157,24 1160,49 L1160,80Z" />
+        <path d="M1180,80 L1180,50 Q1183,30 1186,50 L1186,80Z" />
+      </g>
+
+      <g fill="#4ADE80" opacity="0.7">
+        <path class="grass-sway-1" d="M8,80 L9,38 Q11,10 13,39 L14,80Z" />
+        <path class="grass-sway-2" d="M32,80 L33,42 Q35,15 37,43 L38,80Z" />
+        <path class="grass-sway-3" d="M55,80 L56,36 Q58,8 60,37 L61,80Z" />
+        <path class="grass-sway-1" d="M78,80 L79,40 Q81,12 83,41 L84,80Z" />
+        <path class="grass-sway-2" d="M102,80 L103,35 Q105,6 107,36 L108,80Z" />
+        <path class="grass-sway-3" d="M125,80 L126,42 Q128,16 130,43 L131,80Z" />
+        <path class="grass-sway-1" d="M148,80 L149,38 Q151,10 153,39 L154,80Z" />
+        <path class="grass-sway-2" d="M172,80 L173,34 Q175,5 177,35 L178,80Z" />
+        <path class="grass-sway-3" d="M195,80 L196,40 Q198,14 200,41 L201,80Z" />
+        <path class="grass-sway-1" d="M218,80 L219,36 Q221,8 223,37 L224,80Z" />
+        <path class="grass-sway-2" d="M242,80 L243,42 Q245,16 247,43 L248,80Z" />
+        <path class="grass-sway-3" d="M265,80 L266,38 Q268,10 270,39 L271,80Z" />
+        <path class="grass-sway-1" d="M290,80 L291,34 Q293,4 295,35 L296,80Z" />
+        <path class="grass-sway-2" d="M315,80 L316,40 Q318,14 320,41 L321,80Z" />
+        <path class="grass-sway-3" d="M338,80 L339,36 Q341,8 343,37 L344,80Z" />
+        <path class="grass-sway-1" d="M362,80 L363,42 Q365,16 367,43 L368,80Z" />
+        <path class="grass-sway-2" d="M385,80 L386,38 Q388,10 390,39 L391,80Z" />
+        <path class="grass-sway-3" d="M410,80 L411,34 Q413,5 415,35 L416,80Z" />
+        <path class="grass-sway-1" d="M435,80 L436,40 Q438,14 440,41 L441,80Z" />
+        <path class="grass-sway-2" d="M458,80 L459,36 Q461,8 463,37 L464,80Z" />
+        <path class="grass-sway-3" d="M482,80 L483,42 Q485,16 487,43 L488,80Z" />
+        <path class="grass-sway-1" d="M505,80 L506,38 Q508,10 510,39 L511,80Z" />
+        <path class="grass-sway-2" d="M530,80 L531,34 Q533,4 535,35 L536,80Z" />
+        <path class="grass-sway-3" d="M555,80 L556,40 Q558,14 560,41 L561,80Z" />
+        <path class="grass-sway-1" d="M578,80 L579,36 Q581,8 583,37 L584,80Z" />
+        <path class="grass-sway-2" d="M602,80 L603,42 Q605,16 607,43 L608,80Z" />
+        <path class="grass-sway-3" d="M625,80 L626,38 Q628,10 630,39 L631,80Z" />
+        <path class="grass-sway-1" d="M650,80 L651,34 Q653,5 655,35 L656,80Z" />
+        <path class="grass-sway-2" d="M675,80 L676,40 Q678,14 680,41 L681,80Z" />
+        <path class="grass-sway-3" d="M698,80 L699,36 Q701,8 703,37 L704,80Z" />
+        <path class="grass-sway-1" d="M722,80 L723,42 Q725,16 727,43 L728,80Z" />
+        <path class="grass-sway-2" d="M745,80 L746,38 Q748,10 750,39 L751,80Z" />
+        <path class="grass-sway-3" d="M770,80 L771,34 Q773,4 775,35 L776,80Z" />
+        <path class="grass-sway-1" d="M795,80 L796,40 Q798,14 800,41 L801,80Z" />
+        <path class="grass-sway-2" d="M818,80 L819,36 Q821,8 823,37 L824,80Z" />
+        <path class="grass-sway-3" d="M842,80 L843,42 Q845,16 847,43 L848,80Z" />
+        <path class="grass-sway-1" d="M865,80 L866,38 Q868,10 870,39 L871,80Z" />
+        <path class="grass-sway-2" d="M890,80 L891,34 Q893,5 895,35 L896,80Z" />
+        <path class="grass-sway-3" d="M915,80 L916,40 Q918,14 920,41 L921,80Z" />
+        <path class="grass-sway-1" d="M938,80 L939,36 Q941,8 943,37 L944,80Z" />
+        <path class="grass-sway-2" d="M962,80 L963,42 Q965,16 967,43 L968,80Z" />
+        <path class="grass-sway-3" d="M985,80 L986,38 Q988,10 990,39 L991,80Z" />
+        <path class="grass-sway-1" d="M1010,80 L1011,34 Q1013,4 1015,35 L1016,80Z" />
+        <path class="grass-sway-2" d="M1035,80 L1036,40 Q1038,14 1040,41 L1041,80Z" />
+        <path class="grass-sway-3" d="M1058,80 L1059,36 Q1061,8 1063,37 L1064,80Z" />
+        <path class="grass-sway-1" d="M1082,80 L1083,42 Q1085,16 1087,43 L1088,80Z" />
+        <path class="grass-sway-2" d="M1108,80 L1109,38 Q1111,10 1113,39 L1114,80Z" />
+        <path class="grass-sway-3" d="M1135,80 L1136,34 Q1138,5 1140,35 L1141,80Z" />
+        <path class="grass-sway-1" d="M1162,80 L1163,40 Q1165,14 1167,41 L1168,80Z" />
+        <path class="grass-sway-2" d="M1188,80 L1189,36 Q1191,8 1193,37 L1194,80Z" />
+      </g>
+
+      <g fill="#15803D" opacity="0.4">
+        <path class="grass-sway-2" d="M25,80 L26,44 Q28,18 30,45 L31,80Z" />
+        <path class="grass-sway-3" d="M95,80 L96,40 Q98,12 100,41 L101,80Z" />
+        <path class="grass-sway-1" d="M165,80 L166,42 Q168,15 170,43 L171,80Z" />
+        <path class="grass-sway-2" d="M255,80 L256,38 Q258,10 260,39 L261,80Z" />
+        <path class="grass-sway-3" d="M350,80 L351,44 Q353,18 355,45 L356,80Z" />
+        <path class="grass-sway-1" d="M450,80 L451,40 Q453,12 455,41 L456,80Z" />
+        <path class="grass-sway-2" d="M545,80 L546,42 Q548,15 550,43 L551,80Z" />
+        <path class="grass-sway-3" d="M640,80 L641,38 Q643,10 645,39 L646,80Z" />
+        <path class="grass-sway-1" d="M735,80 L736,44 Q738,18 740,45 L741,80Z" />
+        <path class="grass-sway-2" d="M830,80 L831,40 Q833,12 835,41 L836,80Z" />
+        <path class="grass-sway-1" d="M925,80 L926,42 Q928,15 930,43 L931,80Z" />
+        <path class="grass-sway-3" d="M1020,80 L1021,38 Q1023,10 1025,39 L1026,80Z" />
+        <path class="grass-sway-2" d="M1115,80 L1116,44 Q1118,18 1120,45 L1121,80Z" />
+      </g>
+    </svg>
+  </div>
+
+  <div class="lunar-canvas">
+    <svg viewBox="0 0 1200 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M0,50 L0,32 Q30,28 60,30 Q80,26 105,29 Q130,24 160,27 Q185,22 215,26 Q240,20 275,24 Q310,18 340,22 Q365,16 400,20 Q430,15 465,19 Q495,14 530,18 Q560,12 595,16 Q625,14 660,18 Q690,10 725,15 Q755,12 790,16 Q820,10 855,14 Q885,8 920,13 Q950,10 985,14 Q1015,8 1050,12 Q1080,10 1115,14 Q1145,8 1175,12 L1200,11 L1200,50Z"
+        fill="#1E1B3A" opacity="0.6" />
+
+      <path
+        d="M0,50 L0,36 Q20,33 45,35 Q65,30 90,33 Q120,28 150,31 Q175,26 210,30 Q240,24 270,28 Q300,22 335,26 Q365,20 400,25 Q430,18 465,23 Q500,17 535,22 Q568,16 600,20 Q632,15 665,20 Q698,14 730,19 Q760,16 795,21 Q828,14 860,18 Q890,12 925,17 Q958,14 990,18 Q1020,12 1055,16 Q1085,14 1120,18 Q1150,12 1180,16 L1200,15 L1200,50Z"
+        fill="#151233" />
+
+      <path
+        d="M0,50 L0,40 Q15,37 35,39 Q55,34 80,37 Q105,32 135,36 Q158,30 185,34 Q210,28 245,33 Q278,27 310,31 Q340,25 375,30 Q408,24 440,28 Q470,22 505,27 Q538,22 570,26 Q600,20 635,25 Q668,21 700,25 Q730,19 765,24 Q798,20 830,24 Q860,18 895,22 Q925,17 960,22 Q990,18 1025,22 Q1055,16 1090,21 Q1120,18 1155,22 Q1180,17 1200,20 L1200,50Z"
+        fill="#0E0C28" />
+
+      <ellipse cx="120" cy="42" rx="18" ry="4" fill="#1A1740" opacity="0.7" />
+      <ellipse cx="120" cy="42" rx="14" ry="3" fill="#0E0C28" opacity="0.5" />
+      <ellipse cx="380" cy="38" rx="14" ry="3.5" fill="#1A1740" opacity="0.6" />
+      <ellipse cx="380" cy="38" rx="10" ry="2.5" fill="#0E0C28" opacity="0.4" />
+      <ellipse cx="650" cy="36" rx="20" ry="4.5" fill="#1A1740" opacity="0.7" />
+      <ellipse cx="650" cy="36" rx="15" ry="3" fill="#0E0C28" opacity="0.5" />
+      <ellipse cx="920" cy="34" rx="16" ry="3.5" fill="#1A1740" opacity="0.6" />
+      <ellipse cx="920" cy="34" rx="12" ry="2.5" fill="#0E0C28" opacity="0.4" />
+      <ellipse cx="1100" cy="32" rx="12" ry="3" fill="#1A1740" opacity="0.5" />
+
+      <path d="M102,40 Q110,38 120,38 Q130,38 138,40" fill="none" stroke="#2D2A5E" stroke-width="0.5" opacity="0.5" />
+      <path d="M366,36 Q372,34 380,34 Q388,34 394,36" fill="none" stroke="#2D2A5E" stroke-width="0.5" opacity="0.5" />
+      <path d="M630,34 Q640,31 650,31 Q660,31 670,34" fill="none" stroke="#2D2A5E" stroke-width="0.5" opacity="0.5" />
+      <path d="M904,32 Q912,30 920,30 Q928,30 936,32" fill="none" stroke="#2D2A5E" stroke-width="0.5" opacity="0.5" />
+
+      <circle cx="55" cy="43" r="1.5" fill="#1A1740" opacity="0.6" />
+      <circle cx="200" cy="38" r="2" fill="#1A1740" opacity="0.5" />
+      <circle cx="310" cy="36" r="1" fill="#1A1740" opacity="0.4" />
+      <circle cx="480" cy="34" r="1.8" fill="#1A1740" opacity="0.5" />
+      <circle cx="560" cy="32" r="1.2" fill="#1A1740" opacity="0.4" />
+      <circle cx="750" cy="30" r="2" fill="#1A1740" opacity="0.5" />
+      <circle cx="850" cy="28" r="1.5" fill="#1A1740" opacity="0.4" />
+      <circle cx="1000" cy="30" r="1.8" fill="#1A1740" opacity="0.5" />
+      <circle cx="1150" cy="28" r="1.2" fill="#1A1740" opacity="0.4" />
+
+      <path d="M0,35 Q200,28 400,30 Q600,24 800,28 Q1000,22 1200,26" fill="none" stroke="#4338CA" stroke-width="0.5"
+        opacity="0.15" />
+      <path d="M0,33 Q300,26 600,28 Q900,22 1200,24" fill="none" stroke="#6366F1" stroke-width="0.3" opacity="0.1" />
+    </svg>
+  </div>
+
+  <div class="desktop-top-bar">
+    <span class="text-xs font-medium uppercase tracking-widest" style="color:var(--text-secondary);">Light</span>
+    <div class="toggle-pill" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode"
+      tabindex="0">
+      <div class="knob">
+        <svg class="icon-sun" fill="none" stroke="#F59E0B" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5" />
+          <path
+            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        </svg>
+        <svg class="icon-moon" fill="none" stroke="#93C5FD" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+        </svg>
+      </div>
+    </div>
+    <span class="text-xs font-medium uppercase tracking-widest" style="color:var(--text-secondary);">Dark</span>
+  </div>
+
+  <div class="mobile-header" id="mobileHeader">
+    <div class="profile-ring small">
+      <div class="inner w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mx-auto">
+        <img src="images/image.png" alt="Usman Khan Profile" class="w-full h-full object-cover" />
+      </div>
+    </div>
+
+    <div class="min-w-0 flex-1">
+      <p class="font-display text-sm leading-tight truncate" style="color:var(--text-primary);">Muhammad Usman Khan</p>
+      <p class="text-xs font-medium" style="color:var(--accent);">MS Candidate</p>
+    </div>
+    <div class="toggle-pill" id="themeToggleMobile" role="switch" aria-checked="false" aria-label="Toggle dark mode"
+      tabindex="0" style="transform:scale(0.82);">
+      <div class="knob">
+        <svg class="icon-sun" fill="none" stroke="#F59E0B" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5" />
+          <path
+            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        </svg>
+        <svg class="icon-moon" fill="none" stroke="#93C5FD" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+        </svg>
+      </div>
+    </div>
+    <button class="follow-btn" id="followBtn" aria-expanded="false">
+      Follow
+      <svg class="chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path d="M6 9l6 6 6-6" />
+      </svg>
+      <div class="follow-dropdown" id="followDropdown">
+        <a href="https://github.com/Usman-Khan707" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.33 3.3 1.23a11.38 11.38 0 016 0c2.28-1.56 3.29-1.23 3.29-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 01.82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
+          </svg>
+          <div>
+            <span style="color:var(--text-primary);">GitHub</span>
+            <span class="link-label">github.com/Usman-Khan707</span>
+          </div>
+        </a>
+        <a href="mailto:musmankhan707@gmail.com" onclick="event.stopPropagation()">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="M22 4l-10 8L2 4" />
+          </svg>
+          <div>
+            <span style="color:var(--text-primary);">Email</span>
+            <span class="link-label">musmankhan707@gmail.com</span>
+          </div>
+        </a>
+      </div>
+    </button>
+  </div>
+
+  <div class="split-layout relative z-10">
+
+    <aside class="sidebar">
+      <div class="sidebar-inner fade-up">
+        <div class="profile-ring mb-6">
+          <div class="inner w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mx-auto">
+            <img src="images/image.png" alt="Usman Khan Profile" class="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        <h1 class="font-display text-3xl leading-tight mb-1" style="color:var(--text-primary);">Usman Khan</h1>
+        <p class="text-base font-medium mb-1" style="color:var(--accent);">MS Candidate</p>
+        <p class="flex items-center gap-1.5 text-sm mb-2" style="color:var(--text-secondary);">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 10c0 6-9 13-9 13S3 16 3 10a9 9 0 1118 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          Islamabad, Pakistan
+        </p>
+
+        <div class="sidebar-divider"></div>
+
+        <div class="flex flex-col gap-3 mt-1">
+          <a href="https://github.com/Usman-Khan707" target="_blank" rel="noopener" class="social-link">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.33 3.3 1.23a11.38 11.38 0 016 0c2.28-1.56 3.29-1.23 3.29-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 01.82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
+            </svg>
+            github.com/Usman-Khan707
+          </a>
+          <a href="mailto:musmankhan707@gmail.com" class="social-link">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="M22 4l-10 8L2 4" />
+            </svg>
+            musmankhan707@gmail.com
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+
+      <div class="px-5 lg:px-0 mt-12 lg:mt-16 mb-2 fade-up">
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] mb-1" style="color:var(--accent);">Portfolio</p>
+        <h2 class="font-display text-2xl lg:text-3xl" style="color:var(--text-primary);">Research Projects</h2>
+      </div>
+
+      <section class="px-5 lg:px-0 pt-4 pb-6 fade-up">
+        <div class="flex flex-wrap gap-3" id="filterTabs">
+          <button class="filter-tab active" data-filter="all">All Projects</button>
+          <button class="filter-tab" data-filter="cv">Computer Vision</button>
+          <button class="filter-tab" data-filter="nlp">Natural Language Processing</button>
+          <button class="filter-tab" data-filter="mi">Medical Imaging</button>
+          <button class="filter-tab" data-filter="xai">Explainable AI</button>
+        </div>
+      </section>
+
+      <section class="px-5 lg:px-0 pb-16">
+        <div class="flex flex-col gap-8" id="projectsList">
+
+          <div class="project-card relative flex flex-col md:flex-row xl:flex-row fade-up" data-tags="cv,mi">
+            <a href="project-pages/1-brain-tumor-classification.html" class="absolute inset-0 z-10" aria-label="View Brain Tumor Classification details"></a>
+
+            <div class="project-thumb md:w-64 xl:w-72 md:shrink-0">
+              <img 
+                src="images/confusion.png" 
+                alt="Neuro Insight" 
+                class="w-full h-full object-contain" 
+              />
+            </div>
+            <div class="p-6 lg:p-5 xl:p-8 flex flex-col justify-center flex-1">
+              <div class="flex items-start justify-between gap-4 mb-1">
+                <h3 class="font-display text-xl md:text-2xl" style="color:var(--text-primary);">Brain tumor grade (HGG/LGG) classification using ConvNext-Base  (98.6% Accuracy)</h3>
+                
+                <a href="https://github.com/Usman-Khan707" target="_blank" rel="noopener" class="code-btn shrink-0 relative z-20" title="View Source Code">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.33 3.3 1.23a11.38 11.38 0 016 0c2.28-1.56 3.29-1.23 3.29-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 01.82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
+                  </svg>
+                  Code
+                </a>
+              </div>
+              
+              <p class="text-xs font-semibold mb-3 relative z-0 tracking-wide" style="color:var(--accent);">
+                Muhammad Usman Khan<sup>1</sup>, Dr. Eid Rehman<sup>2</sup>
+              </p>
+
+              <p class="text-sm leading-relaxed mb-5 relative z-0" style="color:var(--text-secondary);">
+                An advanced automated brain tumor grading framework leveraging the ConvNext-Base architecture for precise classification of high-grade (HGG) and low-grade gliomas (LGG). Utilizing multimodal MRI data and transfer learning, the model achieves a remarkable 98.6% accuracy, offering a non-invasive and clinically scalable neuro-oncology tool.
+              </p>
+              
+              <div class="flex flex-wrap gap-2 mt-auto relative z-0">
+                <span class="tag">Computer Vision</span>
+                <span class="tag">Medical Imaging</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card relative flex flex-col md:flex-row xl:flex-row fade-up" data-tags="cv,mi">
+            <a href="project-pages/2-brain-tumor-segmentation.html" class="absolute inset-0 z-10" aria-label="View Brain Tumor Segmentation details"></a>
+
+            <div class="project-thumb md:w-64 xl:w-72 md:shrink-0">
+              <img 
+                src="images/comparison.png" 
+                alt="Neuro Insight" 
+                class="w-full h-full object-contain" 
+              />
+            </div>
+            <div class="p-6 lg:p-5 xl:p-8 flex flex-col justify-center flex-1">
+              <div class="flex items-start justify-between gap-4 mb-1">
+                <h3 class="font-display text-xl md:text-2xl" style="color:var(--text-primary);">Brain Tumor Segmentation using Attention-UNet</h3>
+                
+                <a href="https://github.com/Usman-Khan707" target="_blank" rel="noopener" class="code-btn shrink-0 relative z-20" title="View Source Code">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.33 3.3 1.23a11.38 11.38 0 016 0c2.28-1.56 3.29-1.23 3.29-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 01.82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
+                  </svg>
+                  Code
+                </a>
+              </div>
+              
+              <p class="text-xs font-semibold mb-3 relative z-0 tracking-wide" style="color:var(--accent);">
+                Muhammad Usman Khan<sup>1</sup>, Dr. Eid Rehman<sup>2</sup>
+              </p>
+
+              <p class="text-sm leading-relaxed mb-5 relative z-0" style="color:var(--text-secondary);">
+                An advanced automated brain tumor grading framework leveraging the ConvNext-Base architecture for precise classification of high-grade (HGG) and low-grade gliomas (LGG). Utilizing multimodal MRI data and transfer learning, the model achieves a remarkable 98.6% accuracy, offering a non-invasive and clinically scalable neuro-oncology tool.
+              </p>
+              
+              <div class="flex flex-wrap gap-2 mt-auto relative z-0">
+                <span class="tag">Computer Vision</span>
+                <span class="tag">Medical Imaging</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <footer class="px-5 lg:px-0 pb-10">
+        <div class="footer-divider mb-6"></div>
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p class="text-xs" style="color:var(--text-secondary);">&copy; 2026 Usman Khan. All rights reserved.</p>
+          <div class="flex gap-5">
+            <a href="https://github.com/Usman-Khan707" target="_blank" rel="noopener" class="social-link"
+              style="font-size:0.75rem;">GitHub</a>
+            <a href="mailto:musmankhan707@gmail.com" class="social-link" style="font-size:0.75rem;">Email</a>
+          </div>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    /* ─── LOADING SCREEN LOGIC ─── */
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('page-loader');
+      
+      // Ensure all initial rendering is caught up before hiding
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        document.body.classList.remove('overflow-hidden');
+        
+        // Fully remove the loader from DOM after transition
+        setTimeout(() => {
+          loader.remove();
+        }, 700); 
+      }, 150);
+    });
+
+    /* ─── DARK MODE TOGGLE (syncs desktop & mobile) ─── */
+    const html = document.documentElement;
+    const toggleDesktop = document.getElementById('themeToggle');
+    const toggleMobile = document.getElementById('themeToggleMobile');
+
+    function setDark(dark) {
+      if (dark) {
+        html.classList.add('dark');
+      } else {
+        html.classList.remove('dark');
+      }
+      [toggleDesktop, toggleMobile].forEach(t => {
+        if (t) t.setAttribute('aria-checked', dark ? 'true' : 'false');
+      });
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }
+
+    const stored = localStorage.getItem('theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      setDark(true);
+    }
+
+    [toggleDesktop, toggleMobile].forEach(t => {
+      if (!t) return;
+      t.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setDark(!html.classList.contains('dark'));
+      });
+      t.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setDark(!html.classList.contains('dark')); }
+      });
+    });
+
+    /* ─── FOLLOW BUTTON DROPDOWN ─── */
+    const followBtn = document.getElementById('followBtn');
+    const followDropdown = document.getElementById('followDropdown');
+
+    followBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = followDropdown.classList.contains('open');
+      followDropdown.classList.toggle('open');
+      followBtn.classList.toggle('open');
+      followBtn.setAttribute('aria-expanded', !isOpen);
+    });
+
+    followDropdown.addEventListener('click', (e) => e.stopPropagation());
+
+    document.addEventListener('click', () => {
+      followDropdown.classList.remove('open');
+      followBtn.classList.remove('open');
+      followBtn.setAttribute('aria-expanded', 'false');
+    });
+
+    /* ─── DYNAMIC TWINKLING STARS ─── */
+    const starCanvas = document.getElementById('starCanvas');
+    const starColors = ['white', 'white', 'white', 'white', 'blue', 'purple'];
+
+    function initStars() {
+      for (let i = 0; i < 45; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+
+        const colorClass = starColors[Math.floor(Math.random() * starColors.length)];
+        star.classList.add(colorClass);
+
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        const size = Math.random() * 2 + 1;
+        const duration = Math.random() * 4 + 2;
+        const delay = Math.random() * 5;
+
+        Object.assign(star.style, {
+          left: `${x}vw`,
+          top: `${y}vh`,
+          width: `${size}px`,
+          height: `${size}px`,
+          animationDuration: `${duration}s`,
+          animationDelay: `${delay}s`
+        });
+
+        starCanvas.appendChild(star);
+      }
+    }
+    initStars();
+
+    /* ─── METEOR SHOWER ─── */
+    const meteorCanvas = document.getElementById('meteorCanvas');
+
+    function createMeteor() {
+      const meteor = document.createElement('div');
+      meteor.classList.add('meteor');
+
+      const length = Math.random() * 80 + 80;
+      const x = Math.random() * (window.innerWidth + 800);
+      const delay = Math.random() * 6;
+      const duration = Math.random() * 4.0 + 4.5;
+
+      Object.assign(meteor.style, {
+        left: x + 'px',
+        top: '-100px',
+        height: length + 'px',
+        animationDelay: delay + 's',
+        animationDuration: duration + 's',
+      });
+
+      meteorCanvas.appendChild(meteor);
+    }
+
+    for (let i = 0; i < 5; i++) createMeteor();
+
+    setInterval(() => {
+      if (!html.classList.contains('dark')) return;
+      const existing = meteorCanvas.children;
+      if (existing.length > 10) meteorCanvas.removeChild(existing[0]);
+      createMeteor();
+    }, 8000);
+
+    /* ─── FILTER TABS ─── */
+    const tabs = document.querySelectorAll('.filter-tab');
+    const cards = document.querySelectorAll('.project-card');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((t) => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const filter = tab.dataset.filter;
+
+        cards.forEach((card) => {
+          const tags = card.dataset.tags.split(',');
+          if (filter === 'all' || tags.includes(filter)) {
+            card.style.display = '';
+            requestAnimationFrame(() => {
+              card.classList.add('visible');
+            });
+          } else {
+            card.classList.remove('visible');
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    /* ─── SCROLL ANIMATIONS ─── */
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>

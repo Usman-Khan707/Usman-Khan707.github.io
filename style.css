@@ -1,0 +1,1550 @@
+:root {
+    --accent: #78A083;
+    --accent-glow: rgba(120, 160, 131, 0.25);
+    --bg: #F8FAFC;
+    --card: #FFFFFF;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --border: #E2E8F0;
+    --tag-bg: #78A083;
+    --tag-text: white;
+}
+
+html.dark {
+    --accent: #60A5FA;
+    --accent-glow: rgba(96, 165, 250, 0.2);
+    --bg: #0B0F1A;
+    --card: #111827;
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --border: #1E293B;
+    --tag-bg: rgba(59, 130, 246, 0.15);
+    --tag-text: #93C5FD;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-primary);
+    transition: background-color 0.5s ease, color 0.4s ease;
+    overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════════════
+       AOZORA SKY GRADIENT (Light Mode)
+    ═══════════════════════════════════════════════ */
+body {
+    background: linear-gradient(180deg,
+            #E0EFFE 0%,
+            #EBF4FF 18%,
+            #F0F7FF 35%,
+            #F5F9FF 55%,
+            #F8FAFC 80%,
+            #FAFBFD 100%);
+    background-attachment: fixed;
+}
+
+html.dark body {
+    background: #0B0F1A;
+}
+
+/* ═══════════════════════════════════════════════
+       FLOATING CLOUDS (Light Mode Only) — SVG-based
+    ═══════════════════════════════════════════════ */
+.cloud-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 0.8s ease;
+}
+
+html.dark .cloud-canvas {
+    opacity: 0;
+}
+
+.cloud-svg {
+    position: absolute;
+    filter: blur(0.5px);
+}
+
+.cloud-svg--1 {
+    width: 320px;
+    top: 5%;
+    left: -360px;
+    opacity: 0.92;
+    animation: cloudDrift 85s linear infinite;
+}
+
+.cloud-svg--2 {
+    width: 240px;
+    top: 13%;
+    left: -280px;
+    opacity: 0.8;
+    filter: blur(0.5px);
+    animation: cloudDrift 120s linear infinite;
+    animation-delay: -45s;
+}
+
+.cloud-svg--3 {
+    width: 180px;
+    top: 22%;
+    left: -220px;
+    opacity: 0.65;
+    filter: blur(0.8px);
+    animation: cloudDrift 140s linear infinite;
+    animation-delay: -90s;
+}
+
+.cloud-svg--4 {
+    width: 280px;
+    top: 3%;
+    left: -320px;
+    opacity: 0.55;
+    filter: blur(1px);
+    animation: cloudDrift 160s linear infinite;
+    animation-delay: -20s;
+}
+
+.cloud-svg--5 {
+    width: 200px;
+    top: 30%;
+    left: -240px;
+    opacity: 0.5;
+    filter: blur(1.2px);
+    animation: cloudDrift 180s linear infinite;
+    animation-delay: -110s;
+}
+
+.cloud-svg--6 {
+    width: 350px;
+    top: 8%;
+    left: -390px;
+    opacity: 0.88;
+    filter: blur(0.2px);
+    animation: cloudDrift 95s linear infinite;
+    animation-delay: -60s;
+}
+
+@keyframes cloudDrift {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(100vw + 400px));
+    }
+}
+
+@media (max-width: 768px) {
+    .cloud-svg--1 {
+        width: 200px;
+    }
+
+    .cloud-svg--2 {
+        width: 160px;
+    }
+
+    .cloud-svg--3 {
+        width: 120px;
+    }
+
+    .cloud-svg--4 {
+        width: 180px;
+    }
+
+    .cloud-svg--5 {
+        width: 130px;
+    }
+
+    .cloud-svg--6 {
+        width: 220px;
+    }
+}
+
+/* ─── DARK MODE TOGGLE PILL ─── */
+.toggle-pill {
+    width: 56px;
+    height: 28px;
+    border-radius: 14px;
+    background: #CBD5E1;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.35s ease;
+    flex-shrink: 0;
+}
+
+html.dark .toggle-pill {
+    background: #334155;
+}
+
+.toggle-pill .knob {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.35s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+}
+
+html.dark .toggle-pill .knob {
+    transform: translateX(28px);
+    background: #1E293B;
+}
+
+.knob svg {
+    width: 14px;
+    height: 14px;
+}
+
+.knob .icon-sun {
+    display: block;
+}
+
+.knob .icon-moon {
+    display: none;
+}
+
+html.dark .knob .icon-sun {
+    display: none;
+}
+
+html.dark .knob .icon-moon {
+    display: block;
+}
+
+/* ─── TWINKLING STARS BACKGROUND (Dark Mode Only) ─── */
+.star-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+html.dark .star-canvas {
+    opacity: 1;
+}
+
+.star {
+    position: absolute;
+    border-radius: 50%;
+    animation: twinkle infinite ease-in-out;
+}
+
+.star.white {
+    background-color: #ffffff;
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+}
+
+.star.blue {
+    background-color: #93C5FD;
+    box-shadow: 0 0 3px rgba(147, 197, 253, 0.8);
+}
+
+.star.purple {
+    background-color: #C084FC;
+    box-shadow: 0 0 3px rgba(192, 132, 252, 0.8);
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 0.1;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* ─── METEOR SHOWER (Dark Mode Only) ─── */
+.meteor-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+html.dark .meteor-canvas {
+    opacity: 1;
+}
+
+.meteor {
+    position: absolute;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.4) 60%, rgba(255, 255, 255, 1) 100%);
+    opacity: 0;
+    transform: rotate(-45deg);
+    animation: meteorFall linear infinite;
+}
+
+.meteor::after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8), 0 0 16px 4px rgba(147, 197, 253, 0.3);
+}
+
+@keyframes meteorFall {
+    0% {
+        opacity: 0;
+        transform: rotate(-45deg) translateY(-100px);
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    60% {
+        opacity: 0.6;
+    }
+
+    100% {
+        opacity: 0;
+        transform: rotate(-45deg) translateY(calc(100vh + 300px));
+    }
+}
+
+/* ═══════════════════════════════════════════════
+       FLOATING PLANETS (Dark Mode Only)
+    ═══════════════════════════════════════════════ */
+.planet-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+}
+
+html.dark .planet-canvas {
+    opacity: 1;
+}
+
+.planet {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.planet--saturn {
+    width: 90px;
+    height: 90px;
+    top: 8%;
+    right: 8%;
+    background: radial-gradient(circle at 35% 35%,
+            #E8C87A 0%, #D4A853 25%, #B8893A 50%, #8B6914 80%, #5C4A12 100%);
+    box-shadow:
+        inset -12px -8px 20px rgba(0, 0, 0, 0.5),
+        inset 6px 4px 12px rgba(255, 230, 150, 0.25),
+        0 0 40px rgba(232, 200, 122, 0.08),
+        0 0 80px rgba(232, 200, 122, 0.04);
+    animation: planetFloat1 28s ease-in-out infinite;
+}
+
+.planet--saturn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 30%;
+    border: 2.5px solid rgba(210, 180, 120, 0.35);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotateX(72deg) rotateZ(-15deg);
+    box-shadow: 0 0 8px rgba(210, 180, 120, 0.1);
+}
+
+.planet--saturn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background:
+        repeating-linear-gradient(0deg,
+            transparent 0%, transparent 12%,
+            rgba(139, 105, 20, 0.15) 12%, rgba(139, 105, 20, 0.15) 14%,
+            transparent 14%, transparent 22%,
+            rgba(180, 140, 50, 0.1) 22%, rgba(180, 140, 50, 0.1) 24%,
+            transparent 24%);
+    overflow: hidden;
+}
+
+.planet--neptune {
+    width: 65px;
+    height: 65px;
+    bottom: 10%;
+    left: 5%;
+    background: radial-gradient(circle at 38% 32%,
+            #7DD3FC 0%, #3B82F6 20%, #1D4ED8 45%, #1E3A8A 70%, #172554 100%);
+    box-shadow:
+        inset -10px -6px 18px rgba(0, 0, 0, 0.55),
+        inset 5px 3px 10px rgba(125, 211, 252, 0.2),
+        0 0 30px rgba(59, 130, 246, 0.1),
+        0 0 60px rgba(59, 130, 246, 0.05);
+    animation: planetFloat2 34s ease-in-out infinite;
+}
+
+.planet--neptune::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: linear-gradient(165deg,
+            transparent 30%, rgba(125, 211, 252, 0.08) 45%,
+            transparent 55%, rgba(147, 197, 253, 0.06) 70%, transparent 80%);
+    overflow: hidden;
+}
+
+.planet--mars {
+    width: 36px;
+    height: 36px;
+    top: 45%;
+    right: 3%;
+    background: radial-gradient(circle at 40% 35%,
+            #FCA5A5 0%, #DC2626 30%, #991B1B 60%, #7F1D1D 85%, #450A0A 100%);
+    box-shadow:
+        inset -6px -4px 10px rgba(0, 0, 0, 0.5),
+        inset 3px 2px 6px rgba(252, 165, 165, 0.15),
+        0 0 20px rgba(220, 38, 38, 0.06);
+    animation: planetFloat3 22s ease-in-out infinite;
+}
+
+.planet--mars::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 55% 50%, rgba(127, 29, 29, 0.3) 0%, transparent 40%);
+    overflow: hidden;
+}
+
+.planet--distant {
+    width: 20px;
+    height: 20px;
+    bottom: 35%;
+    right: 18%;
+    background: radial-gradient(circle at 35% 30%,
+            #D8B4FE 0%, #A78BFA 30%, #7C3AED 60%, #4C1D95 100%);
+    box-shadow:
+        inset -4px -3px 6px rgba(0, 0, 0, 0.45),
+        inset 2px 1px 4px rgba(216, 180, 254, 0.2),
+        0 0 15px rgba(167, 139, 250, 0.08);
+    animation: planetFloat4 40s ease-in-out infinite;
+}
+
+.planet--moon {
+    width: 12px;
+    height: 12px;
+    top: 5%;
+    right: 4%;
+    background: radial-gradient(circle at 40% 35%,
+            #E2E8F0 0%, #94A3B8 40%, #64748B 70%, #475569 100%);
+    box-shadow:
+        inset -3px -2px 4px rgba(0, 0, 0, 0.4),
+        inset 1px 1px 3px rgba(226, 232, 240, 0.2),
+        0 0 10px rgba(148, 163, 184, 0.06);
+    animation: moonOrbit 18s ease-in-out infinite;
+}
+
+@keyframes planetFloat1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(-12px, 18px) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(8px, -10px) rotate(-0.5deg);
+    }
+
+    75% {
+        transform: translate(-6px, -14px) rotate(0.8deg);
+    }
+}
+
+@keyframes planetFloat2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(15px, -20px);
+    }
+
+    50% {
+        transform: translate(-8px, 12px);
+    }
+
+    75% {
+        transform: translate(10px, 8px);
+    }
+}
+
+@keyframes planetFloat3 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    33% {
+        transform: translate(-10px, -15px);
+    }
+
+    66% {
+        transform: translate(8px, 10px);
+    }
+}
+
+@keyframes planetFloat4 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    20% {
+        transform: translate(12px, -8px);
+    }
+
+    40% {
+        transform: translate(-5px, 15px);
+    }
+
+    60% {
+        transform: translate(-15px, -5px);
+    }
+
+    80% {
+        transform: translate(8px, 10px);
+    }
+}
+
+@keyframes moonOrbit {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(-20px, 30px);
+    }
+
+    50% {
+        transform: translate(-35px, 15px);
+    }
+
+    75% {
+        transform: translate(-10px, -5px);
+    }
+}
+
+@media (max-width: 768px) {
+    .planet--saturn {
+        width: 60px;
+        height: 60px;
+        top: 6%;
+        right: 5%;
+    }
+
+    .planet--neptune {
+        width: 45px;
+        height: 45px;
+    }
+
+    .planet--mars {
+        width: 26px;
+        height: 26px;
+    }
+
+    .planet--distant {
+        width: 14px;
+        height: 14px;
+    }
+
+    .planet--moon {
+        width: 9px;
+        height: 9px;
+    }
+}
+
+/* ─── GRAIN OVERLAY ─── */
+.grain-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.02;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAAB8ODiFAAAABXRSTlMA/////xzQJlIAAABgSURBVDjLxY0xDQAxDAP7E11A9l91iEwQyMgVvVzXb8bIzBQRr0dENI8T0Z1HRPyPiMg2IqL8REScI2IyEBGVjYioPSIi04iIpBMR8XYiIp8RET8iIv4nIuJmRET6ERHlE3w4zI1+cwAAAABJRU5ErkJggg==");
+    background-repeat: repeat;
+}
+
+html.dark .grain-overlay {
+    opacity: 0.035;
+}
+
+/* ─── AMBIENT GLOW BLOBS ─── */
+.glow-blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    transition: opacity 0.8s ease;
+}
+
+.glow-blob.light-only {
+    opacity: 0.15;
+}
+
+html.dark .glow-blob.light-only {
+    opacity: 0;
+}
+
+.glow-blob.dark-only {
+    opacity: 0;
+}
+
+html.dark .glow-blob.dark-only {
+    opacity: 0.12;
+}
+
+/* ─── PROFILE PICTURE ─── */
+.profile-ring {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    padding: 4px;
+    background: linear-gradient(135deg, var(--accent), #A78BFA, #F472B6);
+    flex-shrink: 0;
+}
+
+.profile-ring.small {
+    width: 46px;
+    height: 46px;
+    padding: 2.5px;
+}
+
+.profile-ring .inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: background 0.4s ease;
+}
+
+.profile-ring .inner svg {
+    width: 60%;
+    height: 60%;
+    color: var(--text-secondary);
+}
+
+/* ─── FILTER TABS ─── */
+.filter-tab {
+    padding: 8px 20px;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.filter-tab:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.filter-tab.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #FFFFFF;
+}
+
+/* ─── PROJECT CARDS ─── */
+.project-card {
+    position: relative;
+    /* Added to contain the absolute overlay link */
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.4s ease;
+}
+
+/* Elevate shadow significantly on hover to imply clickability */
+.project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px var(--accent-glow);
+    border-color: var(--accent);
+}
+
+.project-thumb {
+    background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+    aspect-ratio: 16/10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-thumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.08));
+}
+
+.project-thumb svg {
+    width: 48px;
+    height: 48px;
+    color: rgba(255, 255, 255, 0.7);
+    z-index: 1;
+}
+
+.project-card:nth-child(2) .project-thumb {
+    background: linear-gradient(135deg, #059669, #0D9488);
+}
+
+.project-card:nth-child(3) .project-thumb {
+    background: linear-gradient(135deg, #D97706, #DC2626);
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ─── LINK ICONS & CODE BUTTONS ─── */
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.25s ease;
+}
+
+.social-link:hover {
+    color: var(--accent);
+}
+
+.social-link svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.code-btn {
+    position: relative;
+    /* ADDED: Keeps the button above the card's stretch-link */
+    z-index: 20;
+    /* ADDED: Ensures it remains clickable */
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    text-decoration: none;
+}
+
+.code-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--tag-bg);
+}
+
+.code-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ─── SECTION ENTRY ANIMATION ─── */
+.fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+    background: #1E293B;
+}
+
+/* ─── FOOTER DIVIDER ─── */
+.footer-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+/* ═══════════════════════════════════════════════
+       SPLIT-SCREEN DESKTOP LAYOUT 
+    ═══════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+    .split-layout {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        min-height: 100vh;
+    }
+
+    .sidebar {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 2rem;
+        border-right: 1px solid var(--border);
+        transition: border-color 0.4s ease;
+    }
+
+    .sidebar::-webkit-scrollbar {
+        width: 0;
+    }
+
+    .sidebar {
+        scrollbar-width: none;
+    }
+
+    .main-content {
+        overflow-y: auto;
+        padding: 3rem 3.5rem 4rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .split-layout {
+        grid-template-columns: 320px 1fr;
+    }
+}
+
+@media (max-width: 1023px) {
+    .sidebar {
+        display: none !important;
+    }
+
+    .split-layout {
+        display: block;
+    }
+}
+
+.sidebar-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 320px;
+    width: 100%;
+}
+
+.sidebar-divider {
+    width: 48px;
+    height: 1px;
+    background: var(--border);
+    margin: 1.5rem 0;
+    transition: background 0.4s ease;
+}
+
+/* ═══════════════════════════════════════════════
+       MOBILE HEADER
+    ═══════════════════════════════════════════════ */
+.mobile-header {
+    display: none;
+}
+
+@media (max-width: 1023px) {
+    .mobile-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 20px;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        background: rgba(224, 239, 254, 0.75);
+        border-bottom: 1px solid var(--border);
+        transition: border-color 0.4s ease, background 0.4s ease;
+    }
+
+    html.dark .mobile-header {
+        background: rgba(11, 15, 26, 0.85);
+    }
+}
+
+/* ─── Follow Button ─── */
+.follow-btn {
+    margin-left: auto;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: filter 0.25s ease, transform 0.2s ease;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.follow-btn:hover {
+    filter: brightness(1.1);
+}
+
+.follow-btn:active {
+    transform: scale(0.97);
+}
+
+.follow-btn .chevron {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.3s ease;
+}
+
+.follow-btn.open .chevron {
+    transform: rotate(180deg);
+}
+
+/* ─── Dropdown ─── */
+.follow-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 270px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 8px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(0.96);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    z-index: 100;
+}
+
+html.dark .follow-dropdown {
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+.follow-dropdown.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.follow-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    transition: background 0.2s ease;
+}
+
+.follow-dropdown a:hover {
+    background: var(--tag-bg);
+}
+
+.follow-dropdown a svg {
+    width: 18px;
+    height: 18px;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.follow-dropdown .link-label {
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    font-weight: 400;
+    display: block;
+    line-height: 1.2;
+}
+
+/* ─── Desktop floating theme toggle ─── */
+.desktop-top-bar {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .desktop-top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+        padding: 16px 28px;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 60;
+    }
+}
+
+/* ═══════════════════════════════════════════════
+       GRASS EFFECT (Light Mode Only)
+    ═══════════════════════════════════════════════ */
+.grass-canvas {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    pointer-events: none;
+    z-index: 99;
+    opacity: 1;
+    transition: opacity 0.6s ease;
+}
+
+html.dark .grass-canvas {
+    opacity: 0;
+}
+
+.grass-canvas svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.grass-sway-1 {
+    transform-origin: bottom center;
+    animation: grassSway1 4s ease-in-out infinite;
+}
+
+.grass-sway-2 {
+    transform-origin: bottom center;
+    animation: grassSway2 5s ease-in-out infinite;
+}
+
+.grass-sway-3 {
+    transform-origin: bottom center;
+    animation: grassSway3 3.5s ease-in-out infinite;
+}
+
+@keyframes grassSway1 {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(1.8deg);
+    }
+}
+
+@keyframes grassSway2 {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-2deg);
+    }
+}
+
+@keyframes grassSway3 {
+
+    0%,
+    100% {
+        transform: rotate(0.5deg);
+    }
+
+    50% {
+        transform: rotate(-1.5deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .grass-canvas {
+        height: 35px;
+    }
+}
+
+/* ═══════════════════════════════════════════════
+       LUNAR TERRAIN (Dark Mode Only)
+    ═══════════════════════════════════════════════ */
+.lunar-canvas {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    pointer-events: none;
+    z-index: 99;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+html.dark .lunar-canvas {
+    opacity: 1;
+}
+
+.lunar-canvas svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    .lunar-canvas {
+        height: 35px;
+    }
+}
+
+/* ─── Reduced motion preference ─── */
+@media (prefers-reduced-motion: reduce) {
+
+    .star,
+    .meteor,
+    .planet,
+    .cloud-svg,
+    .fade-up,
+    .grass-sway-1,
+    .grass-sway-2,
+    .grass-sway-3 {
+        animation: none !important;
+    }
+
+    .star {
+        opacity: 0.6;
+    }
+
+    .fade-up {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+/* ─── BASE VARIABLES & THEME ─── */
+:root {
+    --accent: #78A083;
+    --accent-glow: rgba(120, 160, 131, 0.25);
+    --bg: #F8FAFC;
+    --card: #FFFFFF;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --border: #E2E8F0;
+    --tag-bg: #78A083;
+    --tag-text: white;
+}
+
+html.dark {
+    --accent: #60A5FA;
+    --bg: #0B0F1A;
+    --card: rgba(17, 24, 39, 0.7);
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --border: rgba(30, 41, 59, 0.8);
+    --glass-bg: rgba(11, 15, 26, 0.6);
+    --toc-hover: rgba(96, 165, 250, 0.15);
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-primary);
+    transition: background-color 0.5s ease, color 0.4s ease;
+    background: linear-gradient(180deg, #E0EFFE 0%, #EBF4FF 18%, #F0F7FF 35%, #F5F9FF 55%, #F8FAFC 80%, #FAFBFD 100%);
+    background-attachment: fixed;
+}
+
+html.dark body {
+    background: #0B0F1A;
+}
+
+/* ─── AMBIENT BACKGROUNDS ─── */
+.star-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+html.dark .star-canvas {
+    opacity: 1;
+}
+
+.star {
+    position: absolute;
+    border-radius: 50%;
+    animation: twinkle infinite ease-in-out;
+}
+
+.star.white {
+    background-color: #ffffff;
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+}
+
+.star.blue {
+    background-color: #93C5FD;
+    box-shadow: 0 0 3px rgba(147, 197, 253, 0.8);
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 0.1;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+.glow-blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: -1;
+    transition: opacity 0.8s ease;
+}
+
+.glow-blob.light-only {
+    opacity: 0.2;
+}
+
+html.dark .glow-blob.light-only {
+    opacity: 0;
+}
+
+.glow-blob.dark-only {
+    opacity: 0;
+}
+
+html.dark .glow-blob.dark-only {
+    opacity: 0.15;
+}
+
+/* ─── GLASS UI ELEMENTS ─── */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.glass-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.glass-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ─── TOP HEADER NAVIGATION ─── */
+.nav-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid var(--border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    transition: all 0.4s ease;
+}
+
+/* ─── TABLE OF CONTENTS (TOC) SIDEBAR ─── */
+.toc-container {
+    position: sticky;
+    top: 100px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+.toc-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.toc-container::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+.toc-link {
+    display: block;
+    padding: 6px 12px;
+    border-radius: 6px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-left: 2px solid transparent;
+    margin-bottom: 4px;
+}
+
+.toc-link:hover {
+    background: var(--toc-hover);
+    color: var(--text-primary);
+}
+
+.toc-link.active {
+    background: var(--toc-hover);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 500;
+}
+
+.toc-link.is-h3 {
+    padding-left: 24px;
+    font-size: 0.8125rem;
+}
+
+/* ─── PROJECT CONTENT TYPOGRAPHY ─── */
+.project-prose h2,
+.project-prose h3 {
+    font-family: 'DM Serif Display', serif;
+    color: var(--text-primary);
+    scroll-margin-top: 100px;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.project-prose h2 {
+    font-size: 2rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+.project-prose h3 {
+    font-size: 1.5rem;
+}
+
+.project-prose p {
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+    font-size: 1.05rem;
+}
+
+.project-prose ul,
+.project-prose ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.project-prose ul {
+    list-style-type: disc;
+}
+
+.project-prose ol {
+    list-style-type: decimal;
+}
+
+.project-prose li {
+    margin-bottom: 0.5rem;
+}
+
+.project-prose figure {
+    margin: 2rem 0;
+}
+
+.project-prose img {
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    width: 100%;
+    background: var(--card);
+}
+
+.project-prose figcaption {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: 0.75rem;
+    font-weight: 500;
+}
+
+.project-prose strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* ─── THEME TOGGLE ─── */
+.toggle-pill {
+    width: 56px;
+    height: 28px;
+    border-radius: 14px;
+    background: #CBD5E1;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.35s ease;
+    flex-shrink: 0;
+}
+
+html.dark .toggle-pill {
+    background: #334155;
+}
+
+.toggle-pill .knob {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.35s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+}
+
+html.dark .toggle-pill .knob {
+    transform: translateX(28px);
+    background: #1E293B;
+}
+
+.knob svg {
+    width: 14px;
+    height: 14px;
+}
+
+.knob .icon-sun {
+    display: block;
+}
+
+.knob .icon-moon {
+    display: none;
+}
+
+html.dark .knob .icon-sun {
+    display: none;
+}
+
+html.dark .knob .icon-moon {
+    display: block;
+}
+
+/* ─── TABLE STYLING FOR RESEARCH PAPER ─── */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+}
+
+th,
+td {
+    border: 1px solid var(--border);
+    padding: 12px;
+    text-align: left;
+    color: var(--text-secondary);
+}
+
+th {
+    background-color: var(--glass-bg);
+    color: var(--text-primary);
+    font-weight: 600;
+}
+

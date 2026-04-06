@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brain Tumor Grade Classification — Muhammad Usman Khan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="../style.css">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"DM Serif Display"', 'serif'],
+            body: ['"Outfit"', 'sans-serif'],
+          },
+          colors: {
+            accent: { DEFAULT: '#2563EB', dark: '#60A5FA' },
+            surface: { light: '#F8FAFC', dark: '#0B0F1A' },
+            card: { light: '#FFFFFF', dark: '#111827' },
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* ─── BASE VARIABLES & THEME ─── */
+    :root {
+      --accent: #78A083;
+      --accent-glow: rgba(120, 160, 131, 0.25);
+      --bg: #F8FAFC;
+      --card: #FFFFFF;
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --border: #E2E8F0;
+      --tag-bg: #78A083;
+      --tag-text: white;
+    }
+
+    html.dark {
+      --accent: #60A5FA;
+      --bg: #0B0F1A;
+      --card: rgba(17, 24, 39, 0.7);
+      --text-primary: #F1F5F9;
+      --text-secondary: #94A3B8;
+      --border: rgba(30, 41, 59, 0.8);
+      --glass-bg: rgba(11, 15, 26, 0.6);
+      --toc-hover: rgba(96, 165, 250, 0.15);
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      color: var(--text-primary);
+      transition: background-color 0.5s ease, color 0.4s ease;
+      background: linear-gradient(180deg, #E0EFFE 0%, #EBF4FF 18%, #F0F7FF 35%, #F5F9FF 55%, #F8FAFC 80%, #FAFBFD 100%);
+      background-attachment: fixed;
+    }
+
+    html.dark body {
+      background: #0B0F1A;
+    }
+
+    /* ─── AMBIENT BACKGROUNDS ─── */
+    .star-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    html.dark .star-canvas {
+      opacity: 1;
+    }
+
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      animation: twinkle infinite ease-in-out;
+    }
+
+    .star.white {
+      background-color: #ffffff;
+      box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+    }
+
+    .star.blue {
+      background-color: #93C5FD;
+      box-shadow: 0 0 3px rgba(147, 197, 253, 0.8);
+    }
+
+    @keyframes twinkle {
+
+      0%,
+      100% {
+        opacity: 0.1;
+        transform: scale(0.8);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    }
+
+    .glow-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: -1;
+      transition: opacity 0.8s ease;
+    }
+
+    .glow-blob.light-only {
+      opacity: 0.2;
+    }
+
+    html.dark .glow-blob.light-only {
+      opacity: 0;
+    }
+
+    .glow-blob.dark-only {
+      opacity: 0;
+    }
+
+    html.dark .glow-blob.dark-only {
+      opacity: 0.15;
+    }
+
+    /* ─── GLASS UI ELEMENTS ─── */
+    .glass-panel {
+      background: var(--glass-bg, rgba(255, 255, 255, 0.7));
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    html.dark .glass-panel {
+      background: var(--glass-bg);
+    }
+
+    .glass-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--glass-bg, rgba(255, 255, 255, 0.5));
+      backdrop-filter: blur(8px);
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    html.dark .glass-btn {
+      background: var(--glass-bg);
+    }
+
+    .glass-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ─── TABLE OF CONTENTS (TOC) SIDEBAR ─── */
+    .toc-container {
+      position: sticky;
+      top: 100px;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+    }
+
+    .toc-container::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .toc-container::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    .toc-link {
+      display: block;
+      padding: 6px 12px;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border-left: 2px solid transparent;
+      margin-bottom: 4px;
+    }
+
+    .toc-link:hover {
+      background: var(--toc-hover, rgba(0, 0, 0, 0.05));
+      color: var(--text-primary);
+    }
+
+    html.dark .toc-link:hover {
+      background: var(--toc-hover);
+    }
+
+    .toc-link.active {
+      background: var(--toc-hover, rgba(0, 0, 0, 0.05));
+      color: var(--accent);
+      border-left-color: var(--accent);
+      font-weight: 500;
+    }
+
+    html.dark .toc-link.active {
+      background: var(--toc-hover);
+    }
+
+    .toc-link.is-h3 {
+      padding-left: 24px;
+      font-size: 0.8125rem;
+    }
+
+    /* ─── PROJECT CONTENT TYPOGRAPHY ─── */
+    .project-prose h2,
+    .project-prose h3 {
+      font-family: 'DM Serif Display', serif;
+      color: var(--text-primary);
+      scroll-margin-top: 100px;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-prose h2 {
+      font-size: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    .project-prose h3 {
+      font-size: 1.5rem;
+    }
+
+    .project-prose p {
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+      font-size: 1.05rem;
+    }
+
+    .project-prose ul,
+    .project-prose ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-secondary);
+    }
+
+    .project-prose ul {
+      list-style-type: disc;
+    }
+
+    .project-prose ol {
+      list-style-type: decimal;
+    }
+
+    .project-prose li {
+      margin-bottom: 0.5rem;
+    }
+
+    .project-prose figure {
+      margin: 2rem 0;
+    }
+
+    .project-prose img {
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      width: 100%;
+      background: var(--card);
+    }
+
+    .project-prose figcaption {
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-top: 0.75rem;
+      font-weight: 500;
+    }
+
+    .project-prose strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .project-prose code {
+      background: rgba(120, 160, 131, 0.1);
+      color: var(--accent);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    /* ─── THEME TOGGLE ─── */
+    .toggle-pill {
+      width: 56px;
+      height: 28px;
+      border-radius: 14px;
+      background: #CBD5E1;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.35s ease;
+      flex-shrink: 0;
+    }
+
+    html.dark .toggle-pill {
+      background: #334155;
+    }
+
+    .toggle-pill .knob {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.35s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+    }
+
+    html.dark .toggle-pill .knob {
+      transform: translateX(28px);
+      background: #1E293B;
+    }
+
+    .knob svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .knob .icon-sun {
+      display: block;
+    }
+
+    .knob .icon-moon {
+      display: none;
+    }
+
+    html.dark .knob .icon-sun {
+      display: none;
+    }
+
+    html.dark .knob .icon-moon {
+      display: block;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      color: var(--text-secondary);
+    }
+
+    th {
+      background: rgba(0, 0, 0, 0.02);
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    html.dark th {
+      background: rgba(255, 255, 255, 0.02);
+    }
+  </style>
+</head>
+
+<body class="overflow-hidden">
+
+  <div id="page-loader" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#F8FAFC] dark:bg-[#0B0F1A] transition-opacity duration-700 ease-in-out">
+    <div class="relative w-16 h-16 mb-4">
+      <div class="absolute inset-0 rounded-full border-4 border-slate-200 dark:border-slate-800"></div>
+      <div class="absolute inset-0 rounded-full border-4 border-blue-600 dark:border-blue-400 border-t-transparent animate-spin"></div>
+    </div>
+    <p class="text-sm font-medium text-slate-500 dark:text-slate-400 tracking-widest uppercase animate-pulse">
+      Loading Project...
+    </p>
+  </div>
+  <header
+    class="sticky top-0 z-50 w-full backdrop-blur-md bg-white/70 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
+    <div class="max-w-6xl mx-auto px-5 lg:px-8 h-16 flex items-center justify-between">
+      <a href="../index.html"
+        class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to Home
+      </a>
+
+      <div class="flex items-center gap-3">
+        <span class="text-xs font-medium uppercase tracking-widest hidden sm:inline-block"
+          style="color:var(--text-secondary);">Light</span>
+        <div class="toggle-pill" role="switch" aria-checked="false" aria-label="Toggle dark mode" tabindex="0">
+          <div class="knob">
+            <svg class="icon-sun" fill="none" stroke="#F59E0B" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="5" />
+              <path
+                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+            </svg>
+            <svg class="icon-moon" fill="none" stroke="#93C5FD" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+            </svg>
+          </div>
+        </div>
+        <span class="text-xs font-medium uppercase tracking-widest hidden sm:inline-block"
+          style="color:var(--text-secondary);">Dark</span>
+      </div>
+    </div>
+  </header>
+
+  <div id="starCanvas" class="star-canvas"></div>
+  <div class="glow-blob light-only" style="width:500px;height:500px;top:-100px;left:-100px;background:#BFDBFE;"></div>
+  <div class="glow-blob dark-only" style="width:500px;height:500px;top:-120px;left:-80px;background:#1E3A8A;"></div>
+
+  <div class="max-w-6xl mx-auto px-5 lg:px-8 pt-12 pb-8 z-10 relative">
+    <div class="glass-panel p-8 md:p-12 text-center relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent pointer-events-none"></div>
+
+      <h1 class="font-display text-3xl md:text-5xl lg:text-6xl mb-4" style="color:var(--text-primary);">
+        Brain tumor grade (HGG/LGG) classification with ConvNext (98.6% Accuracy)
+      </h1>
+
+      <p class="text-lg font-medium mb-6" style="color:var(--text-secondary);">
+        Muhammad Usman Khan<sup>1</sup>, Dr. Eid Rehman<sup>2</sup>
+      </p>
+
+      <div class="flex items-center justify-center gap-4 text-sm font-medium" style="color:var(--text-secondary);">
+        <span>Medical AI</span>
+        <span>•</span>
+        <span>Deep Learning</span>
+        <span>•</span>
+        <span>Attention-UNet</span>
+        <span>•</span>
+        <span>Segmentation</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-5 lg:px-8 pb-24 z-10 relative flex flex-col lg:flex-row gap-10">
+
+    <aside class="w-full lg:w-72 shrink-0 order-2 lg:order-1 hidden md:block">
+      <div class="glass-panel p-6 toc-container">
+        <h4 class="text-xs font-bold uppercase tracking-[0.15em] mb-4" style="color:var(--text-secondary);">On
+          this page</h4>
+        <nav id="toc-nav" class="flex flex-col"></nav>
+      </div>
+    </aside>
+
+    <main id="content-area" class="flex-1 order-1 lg:order-2 project-prose glass-panel p-8 md:p-12">
+
+      <h2>Abstract</h2>
+      <p>This paper presents an advanced automated brain tumor grading framework leveraging the ConvNextBase
+        architecture for precise classification of high-grade gliomas (HGG) and low-grade gliomas (LGG) using multimodal
+        magnetic resonance imaging (MRI) data from the BraTS 2019 dataset. The model's convolutional base is frozen
+        during training to leverage pre-learned hierarchical features, ensuring effective learning despite the limited
+        size of medical imaging datasets. Performance evaluation on the BraTS 2019 test set reveals outstanding results,
+        with the model achieving 98.6% accuracy, 0.995 AUC, and a high F1-score of 0.992, surpassing conventional
+        machine learning methods such as SVM with handcrafted features and modern deep learning architectures like
+        ResNet and EfficientNet. Overall, this work significantly contributes to the body of automated neuro-oncology
+        tools by offering a non-invasive, high-accuracy, and clinically scalable brain tumor grading approach,
+        potentially transforming diagnostic processes and patient management in neuropathology.</p>
+
+      <h2>1. Introduction</h2>
+      <p>Brain tumors are among the leading causes of neurological morbidity and mortality worldwide, necessitating
+        prompt and accurate diagnosis to optimize patient outcomes. Gliomas, which arise from glial cells, display
+        diverse malignancy grades from low-grade gliomas (LGG) to high-grade gliomas (HGG), with prognostic and
+        therapeutic implications that vary substantially across grades. Accurate brain tumor grade classification
+        traditionally relies on invasive biopsy followed by histopathological evaluation, which carries risks and may
+        not be feasible for all patients.</p>
+
+      <p>Magnetic resonance imaging (MRI), with its diverse sequences such as T1-weighted, contrast-enhanced T1 (TIC),
+        T2-weighted, and fluid attenuated inversion recovery (FLAIR), offers a non-invasive window into tumor morphology
+        and heterogeneity, facilitating automated analysis. To reconcile the advantages of CNNs with transformer
+        architecture benefits, ConvNext has emerged as an architecture blending convolutional robustness with
+        transformer design elements. ConvNext achieves state-of-the-art image classification results while maintaining
+        efficient training and inference, making it highly suitable for medical imaging applications with limited data.
+      </p>
+      <h2>2. About the Dataset</h2>
+      <p>The dataset utilized for this research is <strong>BraTS 2019</strong>. This dataset is a well-known benchmark
+        used for developing and evaluating algorithms for brain tumor analysis from multi-modal MRI scans. It is part of
+        the Medical Segmentation Decathlon and the Multimodal Brain Tumor Image Segmentation Challenge (BraTS).</p>
+
+
+      <h3>Dataset Overview</h3>
+      <ul>
+        <li><strong>Total Samples:</strong> 335 patient cases</li>
+        <li><strong>Tumor Type:</strong> Gliomas (High-Grade Glioma (HGG) and Low-Grade Glioma (LGG))</li>
+        <li><strong>Imaging Modalities (per patient):</strong> T1-weighted (T1), T1 with contrast enhancement
+          (T1Gd/T1ce), T2-weighted (T2), and Fluid Attenuated Inversion Recovery (T2-FLAIR)</li>
+      </ul>
+
+      <figure>
+        <img src="../images/explore.png"
+          alt="Four individual brain MRI scans showing T1, T1ce, T2, and FLAIR modalities alongside a combined colored Mask">
+        <figcaption>Figure 1: MRI Modalities (T1, T1ce, T2, FLAIR) provided per patient case</figcaption>
+      </figure>
+
+      <h3>Ground Truth Annotations</h3>
+      <p>Each label map contains voxel-wise annotations for specific tumor sub-regions:</p>
+      <ul>
+        <li><strong>Label 1:</strong> Necrotic and non-enhancing tumor core (NCR/NET)</li>
+        <li><strong>Label 2:</strong> Peritumoral edema (ED)</li>
+        <li><strong>Label 4:</strong> Enhancing tumor (ET)</li>
+      </ul>
+
+      <figure>
+        <img src="../images/faefaf.png"
+          alt="A sequence of masks breaking down the tumor into individual classes: Original Segmentation, Not Tumor, Non-Enhancing Tumor, Edema, and Enhancing Tumor">
+        <figcaption>Figure 2: Breakdown of Ground Truth Segmentation Labels</figcaption>
+      </figure>
+
+      <h2>3. Research Methodology</h2>
+      <p>A systematic research methodology was designed. This methodology integrates dataset selection, preprocessing
+        techniques, data augmentation, model architecture, and training strategies to effectively address the challenges
+        posed by medical imaging data.</p>
+
+      <h3>1. Dataset and Data Preparation</h3>
+      <p>The BraTS 2019 dataset, a publicly available and widely recognized benchmark for brain tumor segmentation and
+        classification, was employed in this study. To ensure the model focuses on informative regions and to mitigate
+        class imbalance, a specialized slice extraction algorithm was implemented. Slices were selected only if the
+        tumor volume met a minimum threshold of 3% of the total slice area. To balance the dataset, a maximum of 35
+        slices per patient were extracted for HGG and 22 for LGG. Finally, the extracted data was partitioned using a
+        stratified split into 80% training, 10% validation, and 10% testing sets, preserving the HGG/LGG distribution
+        across all splits.</p>
+
+      <figure>
+        <img src="../images/data-split.png"
+          alt="Bar chart showing Stratified Distribution of HGG/LGG in BraTS 2019 Splits">
+        <figcaption>Figure 1: Data split for tumor grade classification model</figcaption>
+      </figure>
+
+      <h3>2. Preprocessing and Data Generator</h3>
+      <p>To optimize memory utilization and ensure thread-safe parallel data loading, a custom Keras
+        <code>Sequence</code> Data Generator was developed. During preprocessing, each 2D MRI slice was normalized using
+        Z-score standardization calculated from the training set:
+      </p>
+
+      <div class="flex items-center justify-center my-6 font-serif text-xl" style="color:var(--text-primary);">
+        <span>z = </span>
+        <div class="flex flex-col items-center mx-3">
+          <span class="border-b-2 border-slate-400 dark:border-slate-500 px-3">x - &mu;</span>
+          <span>&sigma;</span>
+        </div>
+      </div>
+
+      <p>Slices were resized to 240x240 pixels using OpenCV to conform to the ConvNeXt model's input dimensions.
+        Furthermore, since the dataset consists of single-channel grayscale images, they were stacked to create
+        three-channel RGB-like representations, ensuring compatibility with the pre-trained ImageNet weights.</p>
+
+      <h3>3. Model Architecture and Training Strategy</h3>
+      <p>Given limited annotated medical imaging data, transfer learning was employed using the ConvNext-Base model, a
+        modern CNN architecture that incorporates design elements inspired by vision transformers, resulting in superior
+        feature extraction efficiency and accuracy.</p>
+
+      <figure>
+        <img src="../images/classification.png"
+          alt="ConvNext-Base Model Architecture diagram showing layers from Input MRI to Output Tumor Grade">
+        <figcaption>Figure 2: Model Architecture diagram</figcaption>
+      </figure>
+
+      <p>The ConvNext-Base model was initialized with weights pre-trained on the large-scale ImageNet dataset and loaded
+        with the classification head removed (include_top=False). All ConvNext layers were frozen during training to
+        leverage learned representations as fixed feature extractors. A custom classification head was appended,
+        comprising three fully connected dense layers with ReLU activation functions (sizes 512, 256, and 128 neurons),
+        followed by a sigmoid-activated output neuron for binary classification (HGG vs LGG).</p>
+
+      <p>The model was compiled using the Adam optimizer with a custom learning rate of 0.00005 and binary cross-entropy
+        as the loss function. Training was monitored using an Early Stopping callback with a patience of 10 epochs based
+        on validation loss, which restored the best weights to prevent overfitting. The final best model achieved
+        convergence around epoch 46.</p>
+
+      <h2>4. Results</h2>
+      <p>The ConvNext-based classification model demonstrated excellent performance on the BraTS 2019 test set,
+        achieving a low loss value and high accuracy indicative of robust discriminative capability between low- and
+        high-grade gliomas. We evaluated our trained model on different evaluation metrics and it demonstrates excellent
+        overall performance.</p>
+
+      <h3>Evaluation Metrics</h3>
+      <p>To comprehensively evaluate the model, we utilized several key performance indicators:</p>
+
+      <div class="space-y-6 my-6">
+        <div class="glass-panel p-6">
+          <p><strong>Sensitivity (Recall):</strong> Measures the model's ability to correctly identify actual HGG cases
+            out of all actual HGG tumors.</p>
+          <div class="flex items-center justify-center mt-4 font-serif text-xl" style="color:var(--text-primary);">
+            <span>Sensitivity = </span>
+            <div class="flex flex-col items-center mx-3">
+              <span class="border-b-2 border-slate-400 dark:border-slate-500 px-4">TP</span>
+              <span>TP + FN</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-panel p-6">
+          <p><strong>Precision (Positive Predictive Value):</strong> Measures the proportion of tumors predicted as HGG
+            that are truly HGG.</p>
+          <div class="flex items-center justify-center mt-4 font-serif text-xl" style="color:var(--text-primary);">
+            <span>Precision = </span>
+            <div class="flex flex-col items-center mx-3">
+              <span class="border-b-2 border-slate-400 dark:border-slate-500 px-4">TP</span>
+              <span>TP + FP</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-panel p-6">
+          <p><strong>F1-Score:</strong> The harmonic mean of precision and recall. It provides a balance between false
+            positives and false negatives, which is crucial for medical diagnoses.</p>
+          <div class="flex items-center justify-center mt-4 font-serif text-xl" style="color:var(--text-primary);">
+            <span>F1-Score = </span>
+            <div class="flex flex-col items-center mx-3">
+              <span class="border-b-2 border-slate-400 dark:border-slate-500 px-4">2 &times; Precision &times;
+                Recall</span>
+              <span>Precision + Recall</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Final Model Performance</h3>
+      <ul>
+        <li><strong>Loss:</strong> 0.0410</li>
+        <li><strong>Accuracy:</strong> 98.66%</li>
+        <li><strong>AUC:</strong> 0.9950</li>
+        <li><strong>Sensitivity:</strong> 0.9954</li>
+        <li><strong>Precision:</strong> 0.9430</li>
+        <li><strong>F1-Score:</strong> 0.9920</li>
+      </ul>
+
+      <figure>
+        <img src="../images/confusion.png"
+          alt="Confusion matrix showing predictions for High-Grade vs Low-Grade Gliomas">
+        <figcaption>Figure 3: Confusion matrix of classification model for tumor grade</figcaption>
+      </figure>
+
+      <h2>5. Conclusion</h2>
+      <p>The proposed study demonstrates the effectiveness of a ConvNext-Base model leveraging transfer learning for
+        high-accuracy classification of brain tumor grades using multimodal MRI data from the BraTS 2019 dataset. By
+        integrating modern CNN architecture inspired by transformer design and applying careful preprocessing, data
+        balancing, and model training strategies, the approach achieves a remarkable accuracy of 98.6%, surpassing
+        several state-of-the-art methods. Overall, the study contributes a robust and efficient automated framework that
+        balances performance with computational practicality, addressing critical challenges in neuro-oncological
+        imaging.</p>
+
+      <h2>6. Neuro Insight: Clinical Application</h2>
+      <p>To bridge the gap between academic research and clinical utility, the deep learning models discussed above were
+        integrated into a comprehensive, user-friendly web application named <strong>Neuro Insight</strong>. This
+        platform empowers medical professionals to seamlessly upload 3D MRI scans, perform real-time automated
+        segmentation, accurately classify tumor grades (HGG/LGG), and automatically generate detailed clinical reports.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+
+        <figure style="margin: 0;">
+          <img src="../images/1.png" alt="Dashboard View" style="margin: 0; border-radius: 12px;"
+            class="w-full h-auto object-cover border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+          <figcaption>Screen 1 - Dashboard View</figcaption>
+        </figure>
+
+        <figure style="margin: 0;">
+          <img src="../images/2.png" alt="Modal to upload 3D MRIs" style="margin: 0; border-radius: 12px;"
+            class="w-full h-auto object-cover border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+          <figcaption>Screen 2 - Modal to upload 3D MRIs</figcaption>
+        </figure>
+
+        <figure style="margin: 0;">
+          <img src="../images/3.png" alt="MRI Uploaded" style="margin: 0; border-radius: 12px;"
+            class="w-full h-auto object-cover border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+          <figcaption>Screen 3 - MRI Uploaded</figcaption>
+        </figure>
+
+        <figure style="margin: 0;">
+          <img src="../images/4.png" alt="Inference generated" style="margin: 0; border-radius: 12px;"
+            class="w-full h-auto object-cover border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+          <figcaption>Screen 4 - Inference generated</figcaption>
+        </figure>
+
+        <figure style="margin: 0;">
+          <img src="../images/5.png" alt="Report generated" style="margin: 0; border-radius: 12px;"
+            class="w-full h-auto object-cover border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+          <figcaption>Screen 5 - Report generated</figcaption>
+        </figure>
+
+        <figure style="margin: 0;">
+          <img src="../images/6.png" alt="Report in PDF" style="margin: 0; border-radius: 12px;"
+            class="w-full h-auto object-cover border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+          <figcaption>Screen 6 - Report in PDF</figcaption>
+        </figure>
+
+        <figure style="margin: 0;">
+          <img src="../images/7.png" alt="Home page" style="margin: 0; border-radius: 12px;"
+            class="w-full h-auto object-cover border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+          <figcaption>Screen 7 - Home page</figcaption>
+        </figure>
+
+        <figure style="margin: 0;">
+          <img src="../images/8.png" alt="Teams page" style="margin: 0; border-radius: 12px;"
+            class="w-full h-auto object-cover border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+          <figcaption>Screen 8 - Teams page</figcaption>
+        </figure>
+
+      </div>
+      <div class="flex flex-wrap gap-4 mt-12 pt-8 border-t" style="border-color: var(--border);">
+        <a href="https://github.com/Usman-Khan707" target="_blank" class="glass-btn"
+          style="background: var(--accent); color: white; border-color: transparent;">
+          <svg fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.699-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z">
+            </path>
+          </svg>
+          View Code
+        </a>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    /* ─── LOADING SCREEN LOGIC ─── */
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('page-loader');
+
+      // Ensure all initial rendering is caught up before hiding
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        document.body.classList.remove('overflow-hidden');
+
+        // Fully remove the loader from DOM after transition
+        setTimeout(() => {
+          loader.remove();
+        }, 700);
+      }, 150);
+    });
+
+    /* ─── THEME TOGGLE LOGIC ─── */
+    const html = document.documentElement;
+    // Select all elements with the class 'toggle-pill' instead of relying on a single ID
+    const themeToggles = document.querySelectorAll('.toggle-pill');
+
+    function setDark(dark) {
+      if (dark) html.classList.add('dark');
+      else html.classList.remove('dark');
+
+      themeToggles.forEach(toggle => {
+        toggle.setAttribute('aria-checked', dark ? 'true' : 'false');
+      });
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }
+
+    const stored = localStorage.getItem('theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      setDark(true);
+    }
+
+    themeToggles.forEach(toggle => {
+      toggle.addEventListener('click', () => setDark(!html.classList.contains('dark')));
+    });
+
+    /* ─── DYNAMIC STARS ─── */
+    const starCanvas = document.getElementById('starCanvas');
+    for (let i = 0; i < 30; i++) {
+      const star = document.createElement('div');
+      star.className = `star ${Math.random() > 0.8 ? 'blue' : 'white'}`;
+      Object.assign(star.style, {
+        left: `${Math.random() * 100}vw`,
+        top: `${Math.random() * 100}vh`,
+        width: `${Math.random() * 2 + 1}px`,
+        height: `${Math.random() * 2 + 1}px`,
+        animationDuration: `${Math.random() * 3 + 2}s`,
+        animationDelay: `${Math.random() * 5}s`
+      });
+      starCanvas.appendChild(star);
+    }
+
+    /* ─── AUTO-GENERATE TABLE OF CONTENTS & SCROLLSPY ─── */
+    document.addEventListener("DOMContentLoaded", () => {
+      const contentArea = document.getElementById('content-area');
+      const tocNav = document.getElementById('toc-nav');
+
+      const headings = contentArea.querySelectorAll('h2, h3');
+      const tocLinks = [];
+
+      if (headings.length === 0) {
+        document.querySelector('aside').style.display = 'none';
+        return;
+      }
+
+      headings.forEach(heading => {
+        if (!heading.id) {
+          heading.id = heading.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        }
+
+        const link = document.createElement('a');
+        link.href = `#${heading.id}`;
+        link.textContent = heading.textContent;
+
+        link.className = `toc-link ${heading.tagName === 'H3' ? 'is-h3' : ''}`;
+
+        tocNav.appendChild(link);
+        tocLinks.push({ element: heading, link: link });
+      });
+
+      const observerOptions = {
+        root: null,
+        rootMargin: '-120px 0px -60% 0px',
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            tocLinks.forEach(item => item.link.classList.remove('active'));
+
+            const activeItem = tocLinks.find(item => item.element.id === entry.target.id);
+            if (activeItem) {
+              activeItem.link.classList.add('active');
+            }
+          }
+        });
+      }, observerOptions);
+
+      headings.forEach(heading => observer.observe(heading));
+    });
+  </script>
+</body>
+
+</html>
