@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explainable Facial Emotion Recognition — Muhammad Usman Khan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="shortcut icon" href="../images/favicon.webp" type="image/x-icon">
+  <link rel="stylesheet" href="../style.css">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"DM Serif Display"', 'serif'],
+            body: ['"Outfit"', 'sans-serif'],
+          },
+          colors: {
+            accent: { DEFAULT: '#2563EB', dark: '#60A5FA' },
+            surface: { light: '#F8FAFC', dark: '#0B0F1A' },
+            card: { light: '#FFFFFF', dark: '#111827' },
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* ─── BASE VARIABLES & THEME ─── */
+    :root {
+      --accent: #78A083;
+      --accent-glow: rgba(120, 160, 131, 0.25);
+      --bg: #F8FAFC;
+      --card: #FFFFFF;
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --border: #E2E8F0;
+      --tag-bg: #78A083;
+      --tag-text: white;
+    }
+
+    html.dark {
+      --accent: #60A5FA;
+      --bg: #0B0F1A;
+      --card: rgba(17, 24, 39, 0.7);
+      --text-primary: #F1F5F9;
+      --text-secondary: #94A3B8;
+      --border: rgba(30, 41, 59, 0.8);
+      --glass-bg: rgba(11, 15, 26, 0.6);
+      --toc-hover: rgba(96, 165, 250, 0.15);
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      color: var(--text-primary);
+      transition: background-color 0.5s ease, color 0.4s ease;
+      background: linear-gradient(180deg, #E0EFFE 0%, #EBF4FF 18%, #F0F7FF 35%, #F5F9FF 55%, #F8FAFC 80%, #FAFBFD 100%);
+      background-attachment: fixed;
+    }
+
+    html.dark body {
+      background: #0B0F1A;
+    }
+
+    /* ─── AMBIENT BACKGROUNDS ─── */
+    .star-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    html.dark .star-canvas {
+      opacity: 1;
+    }
+
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      animation: twinkle infinite ease-in-out;
+    }
+
+    .star.white {
+      background-color: #ffffff;
+      box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+    }
+
+    .star.blue {
+      background-color: #93C5FD;
+      box-shadow: 0 0 3px rgba(147, 197, 253, 0.8);
+    }
+
+    @keyframes twinkle {
+
+      0%,
+      100% {
+        opacity: 0.1;
+        transform: scale(0.8);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    }
+
+    .glow-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: -1;
+      transition: opacity 0.8s ease;
+    }
+
+    .glow-blob.light-only {
+      opacity: 0.2;
+    }
+
+    html.dark .glow-blob.light-only {
+      opacity: 0;
+    }
+
+    .glow-blob.dark-only {
+      opacity: 0;
+    }
+
+    html.dark .glow-blob.dark-only {
+      opacity: 0.15;
+    }
+
+    /* ─── GLASS UI ELEMENTS ─── */
+    .glass-panel {
+      background: var(--glass-bg, rgba(255, 255, 255, 0.7));
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    html.dark .glass-panel {
+      background: var(--glass-bg);
+    }
+
+    .glass-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--glass-bg, rgba(255, 255, 255, 0.5));
+      backdrop-filter: blur(8px);
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    html.dark .glass-btn {
+      background: var(--glass-bg);
+    }
+
+    .glass-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ─── TABLE OF CONTENTS (TOC) SIDEBAR ─── */
+    .toc-container {
+      position: sticky;
+      top: 100px;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+    }
+
+    .toc-container::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .toc-container::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    .toc-link {
+      display: block;
+      padding: 6px 12px;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border-left: 2px solid transparent;
+      margin-bottom: 4px;
+    }
+
+    .toc-link:hover {
+      background: var(--toc-hover, rgba(0, 0, 0, 0.05));
+      color: var(--text-primary);
+    }
+
+    html.dark .toc-link:hover {
+      background: var(--toc-hover);
+    }
+
+    .toc-link.active {
+      background: var(--toc-hover, rgba(0, 0, 0, 0.05));
+      color: var(--accent);
+      border-left-color: var(--accent);
+      font-weight: 500;
+    }
+
+    html.dark .toc-link.active {
+      background: var(--toc-hover);
+    }
+
+    .toc-link.is-h3 {
+      padding-left: 24px;
+      font-size: 0.8125rem;
+    }
+
+    /* ─── PROJECT CONTENT TYPOGRAPHY ─── */
+    .project-prose h2,
+    .project-prose h3 {
+      font-family: 'DM Serif Display', serif;
+      color: var(--text-primary);
+      scroll-margin-top: 100px;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-prose h2 {
+      font-size: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    .project-prose h3 {
+      font-size: 1.5rem;
+    }
+
+    .project-prose p {
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+      font-size: 1.05rem;
+    }
+
+    .project-prose ul,
+    .project-prose ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-secondary);
+    }
+
+    .project-prose ul {
+      list-style-type: disc;
+    }
+
+    .project-prose ol {
+      list-style-type: decimal;
+    }
+
+    .project-prose li {
+      margin-bottom: 0.5rem;
+    }
+
+    .project-prose figure {
+      margin: 2rem 0;
+    }
+
+    .project-prose img {
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      width: 100%;
+      background: var(--card);
+    }
+
+    .project-prose figcaption {
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-top: 0.75rem;
+      font-weight: 500;
+    }
+
+    .project-prose strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .project-prose code {
+      background: rgba(120, 160, 131, 0.1);
+      color: var(--accent);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    /* ─── THEME TOGGLE ─── */
+    .toggle-pill {
+      width: 56px;
+      height: 28px;
+      border-radius: 14px;
+      background: #CBD5E1;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.35s ease;
+      flex-shrink: 0;
+    }
+
+    html.dark .toggle-pill {
+      background: #334155;
+    }
+
+    .toggle-pill .knob {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.35s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+    }
+
+    html.dark .toggle-pill .knob {
+      transform: translateX(28px);
+      background: #1E293B;
+    }
+
+    .knob svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .knob .icon-sun {
+      display: block;
+    }
+
+    .knob .icon-moon {
+      display: none;
+    }
+
+    html.dark .knob .icon-sun {
+      display: none;
+    }
+
+    html.dark .knob .icon-moon {
+      display: block;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      color: var(--text-secondary);
+    }
+
+    th {
+      background: rgba(0, 0, 0, 0.02);
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    html.dark th {
+      background: rgba(255, 255, 255, 0.02);
+    }
+  </style>
+</head>
+
+<body class="overflow-hidden">
+
+  <div id="page-loader" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#F8FAFC] dark:bg-[#0B0F1A] transition-opacity duration-700 ease-in-out">
+    <div class="relative w-16 h-16 mb-4">
+      <div class="absolute inset-0 rounded-full border-4 border-slate-200 dark:border-slate-800"></div>
+      <div class="absolute inset-0 rounded-full border-4 border-blue-600 dark:border-blue-400 border-t-transparent animate-spin"></div>
+    </div>
+    <p class="text-sm font-medium text-slate-500 dark:text-slate-400 tracking-widest uppercase animate-pulse">
+      Loading Project...
+    </p>
+  </div>
+  <header
+    class="sticky top-0 z-50 w-full backdrop-blur-md bg-white/70 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
+    <div class="max-w-6xl mx-auto px-5 lg:px-8 h-16 flex items-center justify-between">
+      <a href="../index.html"
+        class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to Home
+      </a>
+
+      <div class="flex items-center gap-3">
+        <span class="text-xs font-medium uppercase tracking-widest hidden sm:inline-block"
+          style="color:var(--text-secondary);">Light</span>
+        <div class="toggle-pill" role="switch" aria-checked="false" aria-label="Toggle dark mode" tabindex="0">
+          <div class="knob">
+            <svg class="icon-sun" fill="none" stroke="#F59E0B" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="5" />
+              <path
+                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+            </svg>
+            <svg class="icon-moon" fill="none" stroke="#93C5FD" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+            </svg>
+          </div>
+        </div>
+        <span class="text-xs font-medium uppercase tracking-widest hidden sm:inline-block"
+          style="color:var(--text-secondary);">Dark</span>
+      </div>
+    </div>
+  </header>
+
+  <div id="starCanvas" class="star-canvas"></div>
+  <div class="glow-blob light-only" style="width:500px;height:500px;top:-100px;left:-100px;background:#BFDBFE;"></div>
+  <div class="glow-blob dark-only" style="width:500px;height:500px;top:-120px;left:-80px;background:#1E3A8A;"></div>
+
+  <div class="max-w-6xl mx-auto px-5 lg:px-8 pt-12 pb-8 z-10 relative">
+    <div class="glass-panel p-8 md:p-12 text-center relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent pointer-events-none"></div>
+
+      <h1 class="font-display text-3xl md:text-5xl lg:text-6xl mb-4" style="color:var(--text-primary);">
+        Towards Explainable Facial Emotion Recognition 
+      </h1>
+
+      <p class="text-lg font-medium mb-6" style="color:var(--text-secondary);">
+        Muhammad Usman Khan
+      </p>
+
+      <div class="flex items-center justify-center gap-4 text-sm font-medium" style="color:var(--text-secondary);">
+        <span>Computer Vision</span>
+        <span>•</span>
+        <span>Explainable AI</span>
+        <span>•</span>
+        <span>Trustworthy AI</span>
+        <span>•</span>
+        <span>Bias Auditing</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-5 lg:px-8 pb-24 z-10 relative flex flex-col lg:flex-row gap-10">
+
+    <aside class="w-full lg:w-72 shrink-0 order-2 lg:order-1 hidden md:block">
+      <div class="glass-panel p-6 toc-container">
+        <h4 class="text-xs font-bold uppercase tracking-[0.15em] mb-4" style="color:var(--text-secondary);">On
+          this page</h4>
+        <nav id="toc-nav" class="flex flex-col"></nav>
+      </div>
+    </aside>
+
+    <main id="content-area" class="flex-1 order-1 lg:order-2 project-prose glass-panel p-8 md:p-12">
+
+      <h2>Abstract</h2>
+      <p>Most facial emotion recognition (FER) systems are evaluated solely on accuracy. This project argues that <strong>accuracy alone is insufficient</strong> for responsible deployment and introduces a three-pillar evaluation framework combining <strong>performance metrics</strong>, <strong>Grad-CAM explainability</strong>, and <strong>demographic bias auditing</strong>. The pipeline fine-tunes a ResNet-50 on the RAF-DB dataset (7 emotion classes, ~15K in-the-wild images), achieving 84.35% test accuracy. Grad-CAM heatmaps reveal that correctly classified images show activations on anatomically meaningful facial regions, while misclassified images expose failure modes including background distraction and inter-class confusion. A DeepFace-powered bias audit uncovers a 9.40% gender accuracy gap and 7.87% racial disparity, with intersectional analysis identifying specific subgroup–emotion combinations where the model underperforms most severely.</p>
+
+      <h2>1. Introduction</h2>
+      <p>Facial Expression Recognition (FER) is a core task in affective computing with applications spanning healthcare, human-computer interaction, education, and security. While deep learning models have driven significant accuracy improvements on FER benchmarks, deployment in high-stakes contexts demands more than predictive performance — it requires <strong>transparency</strong> in decision-making and <strong>fairness</strong> across demographic groups.</p>
+
+      <p>This study addresses these gaps through a unified pipeline that (1) fine-tunes a ResNet-50 using transfer learning for competitive accuracy, (2) applies Grad-CAM to generate visual explanations mapping model attention to facial Action Units (AUs), and (3) conducts a systematic demographic bias audit using DeepFace to infer perceived gender and race, enabling disaggregated performance analysis. The RAF-DB dataset serves as the experimental benchmark due to its in-the-wild image diversity and crowd-sourced emotion annotations.</p>
+
+      <h2>2. About the Dataset</h2>
+      <p>The dataset utilized for this research is <strong>RAF-DB</strong> (Real-world Affective Faces Database) — a widely recognized benchmark containing approximately 15,000 facial images collected from the internet with crowd-sourced emotion labels across 7 basic emotion categories.</p>
+
+      <h3>Dataset Overview</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Split</th>
+            <th>Images</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Training</td>
+            <td>~12,271</td>
+          </tr>
+          <tr>
+            <td>Testing</td>
+            <td>3,068</td>
+          </tr>
+          <tr>
+            <td>Classes</td>
+            <td>7 (Surprise, Fear, Disgust, Happiness, Sadness, Anger, Neutral)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <figure>
+        <img src="../images/1-Explainable Facial Emotion/sample-images.webp" alt="Sample images from RAF-DB dataset showing diverse facial expressions across different subjects">
+        <figcaption>Figure 1: Sample images from the RAF-DB dataset showing the 7 emotion categories</figcaption>
+      </figure>
+
+      <h3>Class Distribution</h3>
+      <p>The dataset exhibits significant class imbalance — Happiness dominates (~38% of training data) while Fear and Disgust are underrepresented (~2–5%). This imbalance directly impacts per-class performance and motivates the use of label smoothing during training.</p>
+
+      <figure>
+        <img src="../images/1-Explainable Facial Emotion/class-distribution.webp" alt="Bar chart showing class distribution across 7 emotion categories in the RAF-DB training set">
+        <figcaption>Figure 2: Class distribution in the RAF-DB training set</figcaption>
+      </figure>
+
+      <h2>3. Research Methodology</h2>
+      <p>A systematic pipeline was designed integrating transfer learning, explainability analysis, and fairness auditing to address the challenges of building trustworthy FER systems.</p>
+
+      <h3>Pipeline Architecture</h3>
+      <figure>
+        <img src="../images/1-Explainable Facial Emotion/architecture.webp" alt="End-to-end pipeline diagram showing data flow from RAF-DB through ResNet-50, Grad-CAM, and DeepFace bias audit">
+        <figcaption>Figure 3: End-to-end pipeline architecture</figcaption>
+      </figure>
+
+      <h3>1. Data Preprocessing</h3>
+      <p>All images were resized to 224×224 pixels to conform to ResNet-50's expected input dimensions. Training augmentations included random horizontal flip, slight rotation (±10°), colour jitter, and random erasing — standard techniques for regularizing on small-to-medium datasets. All images were normalized using ImageNet statistics (mean and standard deviation) to ensure compatibility with the pre-trained backbone.</p>
+
+      <h3>2. Model Architecture</h3>
+      <p>Given the limited size of RAF-DB (~12K training images), transfer learning was employed using a <strong>ResNet-50</strong> pre-trained on ImageNet (V2 weights). Early layers (conv1 + layer1) were frozen to preserve low-level feature detectors, while layers 2–4 and the classification head were trainable.</p>
+
+      <p>A custom classification head was appended:</p>
+      <ul>
+        <li><code>AdaptiveAvgPool2d</code> → <code>Flatten</code></li>
+        <li><code>Dropout(0.4)</code> → <code>Linear(2048, 512)</code> → <code>ReLU</code></li>
+        <li><code>BatchNorm1d(512)</code> → <code>Dropout(0.3)</code></li>
+        <li><code>Linear(512, 7)</code></li>
+      </ul>
+
+      <h3>3. Training Strategy</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Setting</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Optimizer</strong></td>
+            <td>AdamW (lr=1e-4, weight_decay=1e-4)</td>
+          </tr>
+          <tr>
+            <td><strong>Loss</strong></td>
+            <td>Cross-Entropy with label smoothing (0.1)</td>
+          </tr>
+          <tr>
+            <td><strong>Scheduler</strong></td>
+            <td>ReduceLROnPlateau (patience=3, factor=0.5)</td>
+          </tr>
+          <tr>
+            <td><strong>Early Stopping</strong></td>
+            <td>Patience = 5 epochs</td>
+          </tr>
+          <tr>
+            <td><strong>Batch Size</strong></td>
+            <td>64</td>
+          </tr>
+          <tr>
+            <td><strong>Mixed Precision</strong></td>
+            <td>FP16 via <code>torch.cuda.amp</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>4. Results</h2>
+      <p>The fine-tuned ResNet-50 achieved competitive accuracy on the RAF-DB test set, demonstrating that transfer learning from ImageNet provides sufficient inductive bias for in-the-wild FER even under constrained compute budgets.</p>
+
+      <h3>Training Curves</h3>
+      <figure>
+        <img src="../images/1-Explainable Facial Emotion/training-curves.webp" alt="Training and validation accuracy and loss curves over 30 epochs">
+        <figcaption>Figure 4: Training & validation accuracy/loss curves</figcaption>
+      </figure>
+
+      <h3>Final Model Performance</h3>
+      <ul>
+        <li><strong>Test Accuracy:</strong> 84.35%</li>
+        <li><strong>Weighted F1-Score:</strong> 0.8435</li>
+        <li><strong>Best Class (Happiness):</strong> 0.93 F1</li>
+        <li><strong>Hardest Class (Disgust):</strong> 0.55 F1</li>
+      </ul>
+
+      <h3>Per-Class Classification Report</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Emotion</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>F1-Score</th>
+            <th>Support</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Surprise</td><td>0.8179</td><td>0.8602</td><td>0.8385</td><td>329</td></tr>
+          <tr><td>Fear</td><td>0.7241</td><td>0.5676</td><td>0.6364</td><td>74</td></tr>
+          <tr><td>Disgust</td><td>0.5714</td><td>0.5250</td><td>0.5472</td><td>160</td></tr>
+          <tr><td>Happiness</td><td>0.9545</td><td>0.9038</td><td>0.9285</td><td>1185</td></tr>
+          <tr><td>Sadness</td><td>0.8259</td><td>0.8138</td><td>0.8198</td><td>478</td></tr>
+          <tr><td>Anger</td><td>0.7622</td><td>0.7716</td><td>0.7669</td><td>162</td></tr>
+          <tr><td>Neutral</td><td>0.7816</td><td>0.8735</td><td>0.8250</td><td>680</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Confusion Matrix</h3>
+      <figure>
+        <img src="../images/1-Explainable Facial Emotion/confusion.webp" alt="Confusion matrix showing predictions across 7 emotion classes">
+        <figcaption>Figure 5: Confusion matrix — key confusions between Fear ↔ Surprise and Disgust → Anger/Sadness</figcaption>
+      </figure>
+
+      <h2>5. Explainability with Grad-CAM</h2>
+      <p><strong>Grad-CAM</strong> (Selvaraju et al., 2017) computes the gradient of the predicted class score with respect to the feature maps of a target convolutional layer. These gradients are globally average-pooled to produce importance weights, which are used to generate a class-discriminative heatmap highlighting the input regions most influential for the prediction. We target <code>layer4[-1]</code> of ResNet-50 — the deepest convolutional block with the highest semantic abstraction.</p>
+
+      <h3>Correctly Classified Examples</h3>
+      <p>Correctly classified images showed Grad-CAM activations concentrated on <strong>anatomically meaningful facial regions</strong>, providing evidence that the model learns emotion-relevant features rather than spurious correlations.</p>
+
+      <figure>
+        <img src="../images/1-Explainable Facial Emotion/correct-classified.webp" alt="Grad-CAM heatmaps overlaid on correctly classified facial images showing activation on relevant facial regions">
+        <figcaption>Figure 6: Grad-CAM heatmaps for correctly classified images</figcaption>
+      </figure>
+
+      <h3>Misclassified Examples</h3>
+      <p>Misclassified images revealed failure modes including <strong>background distraction</strong>, <strong>occlusion sensitivity</strong>, and <strong>inter-class confusion</strong> — actionable insights for model improvement.</p>
+
+      <figure>
+        <img src="../images/1-Explainable Facial Emotion/miss-classified.webp" alt="Grad-CAM heatmaps overlaid on misclassified facial images showing attention on non-facial or irrelevant regions">
+        <figcaption>Figure 7: Grad-CAM heatmaps for misclassified images</figcaption>
+      </figure>
+
+      <h3>Grad-CAM Observations</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Emotion</th>
+            <th>Grad-CAM Focus</th>
+            <th>Facial Action Units</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Happiness</strong></td><td>Mouth & cheeks</td><td>AU6 (cheek raiser) + AU12 (lip corner puller)</td></tr>
+          <tr><td><strong>Surprise</strong></td><td>Eyebrows & eyes</td><td>AU1+2 (brow raise) + AU5 (upper lid raise)</td></tr>
+          <tr><td><strong>Anger</strong></td><td>Brow & glabellar region</td><td>AU4 (brow lowerer)</td></tr>
+          <tr><td><strong>Fear</strong></td><td>Wide eye region</td><td>AU1+2+4+5+20 (wide-eyed tension)</td></tr>
+          <tr><td><strong>Disgust</strong></td><td>Nose & upper lip</td><td>AU9 (nose wrinkler) + AU10 (upper lip raiser)</td></tr>
+          <tr><td><strong>Sadness</strong></td><td>Lower face & eye corners</td><td>Diffuse — subtler cues</td></tr>
+          <tr><td><strong>Neutral</strong></td><td>Low activation</td><td>No strong discriminative region</td></tr>
+        </tbody>
+      </table>
+
+      <h2>6. Demographic Bias Audit</h2>
+      <p>Since RAF-DB does not provide explicit demographic labels, we employ the <strong>DeepFace</strong> library (Serengil & Ozpinar, 2021) to infer perceived gender and race on 1,000 test images. Model accuracy is then disaggregated across these proxy labels to surface performance disparities.</p>
+
+      <h3>Accuracy by Gender</h3>
+      <figure>
+        <img src="../images/1-Explainable Facial Emotion/accuract-by-gender.webp" alt="Bar chart comparing model accuracy between perceived Men and Women groups">
+        <figcaption>Figure 8: Accuracy by perceived gender — 9.40% gap between Men (82.1%) and Women (91.5%)</figcaption>
+      </figure>
+
+      <h3>Accuracy by Race</h3>
+      <figure>
+        <img src="../images/1-Explainable Facial Emotion/accuracy-by-race.webp" alt="Bar chart comparing model accuracy across perceived racial groups">
+        <figcaption>Figure 9: Accuracy by perceived race — 7.87% disparity between highest and lowest groups</figcaption>
+      </figure>
+
+      <h3>Intersectional Analysis</h3>
+      <p>The disaggregated analysis was extended to an intersectional level, examining accuracy across Gender × Emotion and Race × Emotion combinations. These heatmaps reveal that disparities are <strong>not uniform across emotions</strong> — certain subgroup–emotion combinations exhibit significantly lower accuracy, identifying priority targets for bias mitigation.</p>
+
+      <figure>
+        <img src="../images/1-Explainable Facial Emotion/image.webp" alt="Heatmap showing accuracy for each Gender × Emotion combination">
+        <figcaption>Figure 10: Intersectional accuracy — Gender × Emotion</figcaption>
+      </figure>
+
+      <figure>
+        <img src="../images/1-Explainable Facial Emotion/heatmap.webp" alt="Heatmap showing accuracy for each Race × Emotion combination">
+        <figcaption>Figure 11: Intersectional accuracy — Race × Emotion</figcaption>
+      </figure>
+
+      <h2>7. Conclusion</h2>
+      <p>This study conducted an end-to-end pipeline for <strong>Explainable Facial Emotion Recognition</strong> using a ResNet-50 model fine-tuned on the RAF-DB dataset, combining quantitative evaluation, Grad-CAM-based explainability analysis, and proxy-label demographic bias auditing.</p>
+
+      <h3>Key Contributions</h3>
+      <ol>
+        <li><strong>Model Performance:</strong> The fine-tuned ResNet-50 achieved competitive accuracy (84.35%) on the RAF-DB test set, demonstrating that transfer learning from ImageNet provides sufficient inductive bias for in-the-wild FER — even under constrained compute budgets.</li>
+        <li><strong>Explainability Insights:</strong> Correctly classified images showed Grad-CAM activations on anatomically meaningful regions (mouth for Happiness, brows for Anger), while misclassified images revealed failure modes including background distraction and occlusion sensitivity.</li>
+        <li><strong>Demographic Bias Findings:</strong> Disaggregated accuracy analysis revealed measurable performance disparities across perceived gender (9.40% gap) and racial groups (7.87% gap). Intersectional analysis identified specific subgroup–emotion combinations where the model underperforms most severely.</li>
+      </ol>
+
+      <h3>Implications for Trustworthy AI</h3>
+      <p>These findings reinforce the argument that <strong>accuracy alone is an insufficient metric</strong> for evaluating FER systems. Responsible deployment requires transparency (Grad-CAM or alternative XAI methods for every high-stakes prediction), fairness auditing (disaggregated evaluation across protected attributes), dataset diversification, and bias mitigation strategies.</p>
+
+      <h3>Limitations & Future Work</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Limitation</th>
+            <th>Potential Improvement</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Demographic labels are <strong>inferred</strong> (not self-reported)</td><td>Use datasets with verified demographic metadata</td></tr>
+          <tr><td>Single architecture (ResNet-50)</td><td>Compare with ViT, EfficientNet, DAN</td></tr>
+          <tr><td>Moderate overfitting (98.5% train vs 84.4% val)</td><td>Stronger regularization, larger dataset</td></tr>
+          <tr><td>Disgust/Fear classes underperform</td><td>Class-balanced sampling, focal loss</td></tr>
+          <tr><td>Static explainability (Grad-CAM only)</td><td>Add Attention Rollout, LIME, counterfactual explanations</td></tr>
+          <tr><td>Single dataset (RAF-DB)</td><td>Cross-dataset validation on AffectNet, FER2013, ExpW</td></tr>
+        </tbody>
+      </table>
+
+      <h2>8. References</h2>
+      <ul>
+        <li><strong>Li, S., Deng, W., & Du, J.</strong> (2017). Reliable Crowdsourcing and Deep Locality-Preserving Learning for Expression Recognition in the Wild. <em>CVPR</em>.</li>
+        <li><strong>Selvaraju, R. R., et al.</strong> (2017). Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization. <em>ICCV</em>.</li>
+        <li><strong>Buolamwini, J. & Gebru, T.</strong> (2018). Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification. <em>FAccT</em>.</li>
+        <li><strong>Xu, T., et al.</strong> (2020). Investigating Bias and Fairness in Facial Expression Recognition. <em>ECCV Workshops</em>.</li>
+        <li><strong>Serengil, S. I. & Ozpinar, A.</strong> (2021). HyperExtended LightFace: A Facial Attribute Analysis Framework. <em>ICEET</em>.</li>
+      </ul>
+
+      <div class="flex flex-wrap gap-4 mt-12 pt-8 border-t" style="border-color: var(--border);">
+        <a href="https://github.com/Usman-Khan707/Explainable-Facial-Emotion-Recognition" target="_blank" class="glass-btn"
+          style="background: var(--accent); color: white; border-color: transparent;">
+          <svg fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.699-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z">
+            </path>
+          </svg>
+          View Code
+        </a>
+        <a href="https://www.kaggle.com/datasets/shuvoalok/raf-db-dataset" target="_blank" class="glass-btn">
+          <svg fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5">
+            <path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v14.343l6.203-6.272c.165-.165.33-.246.495-.246h3.239c.144 0 .236.06.281.18.046.149.034.255-.036.315l-6.555 6.344 6.836 8.507c.095.104.117.208.075.312z"/>
+          </svg>
+          RAF-DB Dataset
+        </a>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    /* ─── LOADING SCREEN LOGIC ─── */
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('page-loader');
+
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        document.body.classList.remove('overflow-hidden');
+
+        setTimeout(() => {
+          loader.remove();
+        }, 700);
+      }, 150);
+    });
+
+    /* ─── THEME TOGGLE LOGIC ─── */
+    const html = document.documentElement;
+    const themeToggles = document.querySelectorAll('.toggle-pill');
+
+    function setDark(dark) {
+      if (dark) html.classList.add('dark');
+      else html.classList.remove('dark');
+
+      themeToggles.forEach(toggle => {
+        toggle.setAttribute('aria-checked', dark ? 'true' : 'false');
+      });
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }
+
+    const stored = localStorage.getItem('theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      setDark(true);
+    }
+
+    themeToggles.forEach(toggle => {
+      toggle.addEventListener('click', () => setDark(!html.classList.contains('dark')));
+    });
+
+    /* ─── DYNAMIC STARS ─── */
+    const starCanvas = document.getElementById('starCanvas');
+    for (let i = 0; i < 30; i++) {
+      const star = document.createElement('div');
+      star.className = `star ${Math.random() > 0.8 ? 'blue' : 'white'}`;
+      Object.assign(star.style, {
+        left: `${Math.random() * 100}vw`,
+        top: `${Math.random() * 100}vh`,
+        width: `${Math.random() * 2 + 1}px`,
+        height: `${Math.random() * 2 + 1}px`,
+        animationDuration: `${Math.random() * 3 + 2}s`,
+        animationDelay: `${Math.random() * 5}s`
+      });
+      starCanvas.appendChild(star);
+    }
+
+    /* ─── AUTO-GENERATE TABLE OF CONTENTS & SCROLLSPY ─── */
+    document.addEventListener("DOMContentLoaded", () => {
+      const contentArea = document.getElementById('content-area');
+      const tocNav = document.getElementById('toc-nav');
+
+      const headings = contentArea.querySelectorAll('h2, h3');
+      const tocLinks = [];
+
+      if (headings.length === 0) {
+        document.querySelector('aside').style.display = 'none';
+        return;
+      }
+
+      headings.forEach(heading => {
+        if (!heading.id) {
+          heading.id = heading.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        }
+
+        const link = document.createElement('a');
+        link.href = `#${heading.id}`;
+        link.textContent = heading.textContent;
+
+        link.className = `toc-link ${heading.tagName === 'H3' ? 'is-h3' : ''}`;
+
+        tocNav.appendChild(link);
+        tocLinks.push({ element: heading, link: link });
+      });
+
+      const observerOptions = {
+        root: null,
+        rootMargin: '-120px 0px -60% 0px',
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            tocLinks.forEach(item => item.link.classList.remove('active'));
+
+            const activeItem = tocLinks.find(item => item.element.id === entry.target.id);
+            if (activeItem) {
+              activeItem.link.classList.add('active');
+            }
+          }
+        });
+      }, observerOptions);
+
+      headings.forEach(heading => observer.observe(heading));
+    });
+  </script>
+</body>
+
+</html>

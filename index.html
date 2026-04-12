@@ -39,10 +39,13 @@
 
 <body class="relative min-h-screen font-body overflow-hidden">
 
-  <div id="page-loader" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#F8FAFC] dark:bg-[#0B0F1A] transition-opacity duration-700 ease-in-out">
+  <div id="page-loader"
+    class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#F8FAFC] dark:bg-[#0B0F1A] transition-opacity duration-700 ease-in-out">
     <div class="relative w-16 h-16 mb-4">
       <div class="absolute inset-0 rounded-full border-4 border-slate-200 dark:border-slate-800"></div>
-      <div class="absolute inset-0 rounded-full border-4 border-blue-600 dark:border-blue-400 border-t-transparent animate-spin"></div>
+      <div
+        class="absolute inset-0 rounded-full border-4 border-blue-600 dark:border-blue-400 border-t-transparent animate-spin">
+      </div>
     </div>
     <p class="text-sm font-medium text-slate-500 dark:text-slate-400 tracking-widest uppercase animate-pulse">
       Loading Portfolio...
@@ -431,80 +434,121 @@
         <div class="flex flex-col gap-8" id="projectsList">
 
           <div class="project-card relative flex flex-col md:flex-row xl:flex-row fade-up" data-tags="cv,mi">
-            <a href="project-pages/1-brain-tumor-classification.html" class="absolute inset-0 z-10" aria-label="View Brain Tumor Classification details"></a>
+            <a href="project-pages/1-brain-tumor-classification.html" class="absolute inset-0 z-10"
+              aria-label="View Brain Tumor Classification details"></a>
 
             <div class="project-thumb md:w-64 xl:w-72 md:shrink-0">
-              <img 
-                src="images/confusion.webp" 
-                alt="Neuro Insight" 
-                class="w-full h-full object-contain" 
-              />
+              <img src="images/confusion.webp" alt="Neuro Insight" class="w-full h-full object-contain" />
             </div>
             <div class="p-6 lg:p-5 xl:p-8 flex flex-col justify-center flex-1">
               <div class="flex items-start justify-between gap-4 mb-1">
-                <h3 class="font-display text-xl md:text-2xl" style="color:var(--text-primary);">Brain tumor grade (HGG/LGG) classification using ConvNext-Base  (98.6% Accuracy)</h3>
-                
-                <a href="https://github.com/Usman-Khan707" target="_blank" rel="noopener" class="code-btn shrink-0 relative z-20" title="View Source Code">
+                <h3 class="font-display text-xl md:text-2xl" style="color:var(--text-primary);">Brain tumor grade
+                  (HGG/LGG) classification using ConvNext-Base (98.6% Accuracy)</h3>
+
+                <a href="https://github.com/Usman-Khan707" target="_blank" rel="noopener"
+                  class="code-btn shrink-0 relative z-20" title="View Source Code">
                   <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.33 3.3 1.23a11.38 11.38 0 016 0c2.28-1.56 3.29-1.23 3.29-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 01.82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
+                    <path
+                      d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.33 3.3 1.23a11.38 11.38 0 016 0c2.28-1.56 3.29-1.23 3.29-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 01.82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
                   </svg>
                   Code
                 </a>
               </div>
-              
+
               <p class="text-xs font-semibold mb-3 relative z-0 tracking-wide" style="color:var(--accent);">
                 Muhammad Usman Khan<sup>1</sup>, Dr. Eid Rehman<sup>2</sup>
               </p>
 
               <p class="text-sm leading-relaxed mb-5 relative z-0" style="color:var(--text-secondary);">
-                An advanced automated brain tumor grading framework leveraging the ConvNext-Base architecture for precise classification of high-grade (HGG) and low-grade gliomas (LGG). Utilizing multimodal MRI data and transfer learning, the model achieves a remarkable 98.6% accuracy, offering a non-invasive and clinically scalable neuro-oncology tool.
+                Brain tumor grade (HGG/LGG) classification using ConvNeXt-Base, achieving 98.6% accuracy on BraTS 2019.
               </p>
-              
+
               <div class="flex flex-wrap gap-2 mt-auto relative z-0">
                 <span class="tag">Computer Vision</span>
                 <span class="tag">Medical Imaging</span>
               </div>
             </div>
           </div>
+          <div class="flex flex-col gap-8" id="projectsList">
 
-          <div class="project-card relative flex flex-col md:flex-row xl:flex-row fade-up" data-tags="cv,mi">
-            <a href="project-pages/2-brain-tumor-segmentation.html" class="absolute inset-0 z-10" aria-label="View Brain Tumor Segmentation details"></a>
+            <div class="project-card relative flex flex-col md:flex-row xl:flex-row fade-up" data-tags="cv,xai">
+              <a href="project-pages/3-Explainable Facial Emotion.html" class="absolute inset-0 z-10"
+                aria-label="View Explainable Facial Emotion details"></a>
 
-            <div class="project-thumb md:w-64 xl:w-72 md:shrink-0">
-              <img 
-                src="images/comparison.webp" 
-                alt="Neuro Insight" 
-                class="w-full h-full object-contain" 
-              />
-            </div>
-            <div class="p-6 lg:p-5 xl:p-8 flex flex-col justify-center flex-1">
-              <div class="flex items-start justify-between gap-4 mb-1">
-                <h3 class="font-display text-xl md:text-2xl" style="color:var(--text-primary);">Brain Tumor Segmentation using Attention-UNet</h3>
-                
-                <a href="https://github.com/Usman-Khan707" target="_blank" rel="noopener" class="code-btn shrink-0 relative z-20" title="View Source Code">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.33 3.3 1.23a11.38 11.38 0 016 0c2.28-1.56 3.29-1.23 3.29-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 01.82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
-                  </svg>
-                  Code
-                </a>
+              <div class="project-thumb md:w-64 xl:w-72 md:shrink-0">
+                <img src="images/explainable.webp" alt="Neuro Insight" class="w-full h-full object-contain" />
               </div>
-              
-              <p class="text-xs font-semibold mb-3 relative z-0 tracking-wide" style="color:var(--accent);">
-                Muhammad Usman Khan<sup>1</sup>, Dr. Eid Rehman<sup>2</sup>
-              </p>
+              <div class="p-6 lg:p-5 xl:p-8 flex flex-col justify-center flex-1">
+                <div class="flex items-start justify-between gap-4 mb-1">
+                  <h3 class="font-display text-xl md:text-2xl" style="color:var(--text-primary);">Towards Explainable Facial
+                    Emotion Recognition</h3>
 
-              <p class="text-sm leading-relaxed mb-5 relative z-0" style="color:var(--text-secondary);">
-                An advanced automated brain tumor grading framework leveraging the ConvNext-Base architecture for precise classification of high-grade (HGG) and low-grade gliomas (LGG). Utilizing multimodal MRI data and transfer learning, the model achieves a remarkable 98.6% accuracy, offering a non-invasive and clinically scalable neuro-oncology tool.
-              </p>
-              
-              <div class="flex flex-wrap gap-2 mt-auto relative z-0">
-                <span class="tag">Computer Vision</span>
-                <span class="tag">Medical Imaging</span>
+                  <a href="https://github.com/Usman-Khan707" target="_blank" rel="noopener"
+                    class="code-btn shrink-0 relative z-20" title="View Source Code">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path
+                        d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.33 3.3 1.23a11.38 11.38 0 016 0c2.28-1.56 3.29-1.23 3.29-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 01.82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
+                    </svg>
+                    Code
+                  </a>
+                </div>
+
+                <p class="text-xs font-semibold mb-3 relative z-0 tracking-wide" style="color:var(--accent);">
+                  Muhammad Usman Khan<sup>1</sup>
+                </p>
+
+                <p class="text-sm leading-relaxed mb-5 relative z-0" style="color:var(--text-secondary);">
+                  A trustworthy facial emotion recognition pipeline combining ResNet-50, Grad-CAM explainability, and
+                  demographic fairness auditing.
+                </p>
+
+                <div class="flex flex-wrap gap-2 mt-auto relative z-0">
+                  <span class="tag">Computer Vision</span>
+                  <span class="tag">Trustworth AI</span>
+                  <span class="tag">Explainable AI</span>
+                </div>
               </div>
             </div>
+
+            <div class="project-card relative flex flex-col md:flex-row xl:flex-row fade-up" data-tags="cv,mi">
+              <a href="project-pages/2-brain-tumor-segmentation.html" class="absolute inset-0 z-10"
+                aria-label="View Brain Tumor Segmentation details"></a>
+
+              <div class="project-thumb md:w-64 xl:w-72 md:shrink-0">
+                <img src="images/comparison.webp" alt="Neuro Insight" class="w-full h-full object-contain" />
+              </div>
+              <div class="p-6 lg:p-5 xl:p-8 flex flex-col justify-center flex-1">
+                <div class="flex items-start justify-between gap-4 mb-1">
+                  <h3 class="font-display text-xl md:text-2xl" style="color:var(--text-primary);">Brain Tumor
+                    Segmentation using Attention-UNet</h3>
+
+                  <a href="https://github.com/Usman-Khan707" target="_blank" rel="noopener"
+                    class="code-btn shrink-0 relative z-20" title="View Source Code">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path
+                        d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.33 3.3 1.23a11.38 11.38 0 016 0c2.28-1.56 3.29-1.23 3.29-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 01.82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
+                    </svg>
+                    Code
+                  </a>
+                </div>
+
+                <p class="text-xs font-semibold mb-3 relative z-0 tracking-wide" style="color:var(--accent);">
+                  Muhammad Usman Khan<sup>1</sup>, Dr. Eid Rehman<sup>2</sup>
+                </p>
+
+                <p class="text-sm leading-relaxed mb-5 relative z-0" style="color:var(--text-secondary);">
+                  Precise multi-class brain tumor segmentation using Attention-UNet on the BraTS 2019 dataset, fully
+                  integrated into the Neuro Insight clinical application
+                </p>
+
+                <div class="flex flex-wrap gap-2 mt-auto relative z-0">
+                  <span class="tag">Computer Vision</span>
+                  <span class="tag">Medical Imaging</span>
+                </div>
+              </div>
+            </div>
+
           </div>
-
-        </div>
       </section>
 
       <footer class="px-5 lg:px-0 pb-10">
@@ -526,16 +570,16 @@
     /* ─── LOADING SCREEN LOGIC ─── */
     window.addEventListener('load', () => {
       const loader = document.getElementById('page-loader');
-      
+
       // Ensure all initial rendering is caught up before hiding
       setTimeout(() => {
         loader.style.opacity = '0';
         document.body.classList.remove('overflow-hidden');
-        
+
         // Fully remove the loader from DOM after transition
         setTimeout(() => {
           loader.remove();
-        }, 700); 
+        }, 700);
       }, 150);
     });
 
@@ -697,4 +741,5 @@
     document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
   </script>
 </body>
+
 </html>
