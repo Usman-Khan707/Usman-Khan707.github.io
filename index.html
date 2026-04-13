@@ -406,7 +406,7 @@
         <div class="flex flex-wrap gap-3" id="filterTabs">
           <button class="filter-tab active" data-filter="all">All Projects</button>
           <button class="filter-tab" data-filter="cv">Computer Vision</button>
-          <!-- <button class="filter-tab" data-filter="nlp">Natural Language Processing</button> -->
+          <button class="filter-tab" data-filter="nlp">Natural Language Processing</button>
           <button class="filter-tab" data-filter="mi">Medical Imaging</button>
           <button class="filter-tab" data-filter="cyber">AI in Cybersecurity</button>
         </div>
@@ -415,6 +415,7 @@
       <section class="px-5 lg:px-0 pb-16">
         <div class="flex flex-col gap-8" id="projectsList">
 
+          <!-- ═══ CARD 1: Brain Tumor Classification ═══ -->
           <div class="project-card relative flex flex-col md:flex-row xl:flex-row fade-up" data-tags="cv,mi">
             <a href="project-pages/1-brain-tumor-classification.html" class="absolute inset-0 z-10"
               aria-label="View Brain Tumor Classification details"></a>
@@ -427,14 +428,23 @@
                 <h3 class="font-display text-xl md:text-2xl" style="color:var(--text-primary);">Brain tumor grade
                   (HGG/LGG) classification using ConvNext-Base (98.6% Accuracy)</h3>
 
-                <a href="https://github.com/Usman-Khan707/Brain-tumor-grade-classification/blob/main/brain-tumor-grade-classification-98-accuracy.ipynb"
-                  target="_blank" rel="noopener" class="code-btn shrink-0 relative z-20" title="View Source Code">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.33 3.3 1.23a11.38 11.38 0 016 0c2.28-1.56 3.29-1.23 3.29-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 01.82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
-                  </svg>
-                  Code
-                </a>
+                <div class="flex gap-2 shrink-0 relative z-20">
+                  <a href="project-pages/1-brain-tumor-classification.html"
+                    class="project-btn" title="View Project Page">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:16px;height:16px;">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 0l3-3m-3 3l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Project
+                  </a>
+                  <a href="https://github.com/Usman-Khan707" target="_blank" rel="noopener"
+                    class="code-btn" title="View Source Code">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path
+                        d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.33 3.3 1.23a11.38 11.38 0 016 0c2.28-1.56 3.29-1.23 3.29-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 01.82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
+                    </svg>
+                    Code
+                  </a>
+                </div>
               </div>
 
               <p class="text-xs font-semibold mb-3 relative z-0 tracking-wide" style="color:var(--accent);">
@@ -451,23 +461,30 @@
               </div>
             </div>
           </div>
-          <div class="flex flex-col gap-8" id="projectsList">
 
-            <div class="project-card relative flex flex-col md:flex-row xl:flex-row fade-up" data-tags="cv,xai">
-              <a href="project-pages/3-Explainable Facial Emotion.html" class="absolute inset-0 z-10"
-                aria-label="View Explainable Facial Emotion details"></a>
+          <!-- ═══ CARD 2: Explainable Facial Emotion ═══ -->
+          <div class="project-card relative flex flex-col md:flex-row xl:flex-row fade-up" data-tags="cv,xai">
+            <a href="project-pages/3-Explainable Facial Emotion.html" class="absolute inset-0 z-10"
+              aria-label="View Explainable Facial Emotion details"></a>
 
-              <div class="project-thumb md:w-64 xl:w-72 md:shrink-0">
-                <img src="images/explainable.webp" alt="Neuro Insight" class="w-full h-full object-contain" />
-              </div>
-              <div class="p-6 lg:p-5 xl:p-8 flex flex-col justify-center flex-1">
-                <div class="flex items-start justify-between gap-4 mb-1">
-                  <h3 class="font-display text-xl md:text-2xl" style="color:var(--text-primary);">Towards Explainable
-                    Facial
-                    Emotion Recognition</h3>
+            <div class="project-thumb md:w-64 xl:w-72 md:shrink-0">
+              <img src="images/explainable.webp" alt="Neuro Insight" class="w-full h-full object-contain" />
+            </div>
+            <div class="p-6 lg:p-5 xl:p-8 flex flex-col justify-center flex-1">
+              <div class="flex items-start justify-between gap-4 mb-1">
+                <h3 class="font-display text-xl md:text-2xl" style="color:var(--text-primary);">Towards Explainable
+                  Facial Emotion Recognition</h3>
 
-                  <a href="https://github.com/Usman-Khan707/Towards-Explainable-Facial-Emotion-Recognition/blob/main/Towards%20Explainable%20Facial%20Emotion%20Recognition.ipynb"
-                    target="_blank" rel="noopener" class="code-btn shrink-0 relative z-20" title="View Source Code">
+                <div class="flex gap-2 shrink-0 relative z-20">
+                  <a href="project-pages/3-Explainable Facial Emotion.html"
+                    class="project-btn" title="View Project Page">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:16px;height:16px;">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 0l3-3m-3 3l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Project
+                  </a>
+                  <a href="https://github.com/Usman-Khan707" target="_blank" rel="noopener"
+                    class="code-btn" title="View Source Code">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                       <path
                         d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.33 3.3 1.23a11.38 11.38 0 016 0c2.28-1.56 3.29-1.23 3.29-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 01.82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
@@ -475,105 +492,124 @@
                     Code
                   </a>
                 </div>
+              </div>
 
-                <p class="text-xs font-semibold mb-3 relative z-0 tracking-wide" style="color:var(--accent);">
-                  Muhammad Usman Khan<sup>1</sup>
-                </p>
+              <p class="text-xs font-semibold mb-3 relative z-0 tracking-wide" style="color:var(--accent);">
+                Muhammad Usman Khan<sup>1</sup>
+              </p>
 
-                <p class="text-sm leading-relaxed mb-5 relative z-0" style="color:var(--text-secondary);">
-                  A trustworthy facial emotion recognition pipeline combining ResNet-50, Grad-CAM explainability, and
-                  demographic fairness auditing.
-                </p>
+              <p class="text-sm leading-relaxed mb-5 relative z-0" style="color:var(--text-secondary);">
+                A trustworthy facial emotion recognition pipeline combining ResNet-50, Grad-CAM explainability, and
+                demographic fairness auditing.
+              </p>
 
-                <div class="flex flex-wrap gap-2 mt-auto relative z-0">
-                  <span class="tag">Computer Vision</span>
-                  <span class="tag">Trustworth AI</span>
-                  <span class="tag">Explainable AI</span>
-                </div>
+              <div class="flex flex-wrap gap-2 mt-auto relative z-0">
+                <span class="tag">Computer Vision</span>
+                <span class="tag">Trustworth AI</span>
+                <span class="tag">Explainable AI</span>
               </div>
             </div>
-            <div class="flex flex-col gap-8" id="projectsList">
+          </div>
 
-              <div class="project-card relative flex flex-col md:flex-row xl:flex-row fade-up" data-tags="cv,cyber">
-                <a href="project-pages/4-Trust-Aware Federated Learning for Network Intrusion Detection.html"
-                  class="absolute inset-0 z-10" aria-label="View Explainable Facial Emotion details"></a>
+          <!-- ═══ CARD 3: Trust-Aware Federated Learning ═══ -->
+          <div class="project-card relative flex flex-col md:flex-row xl:flex-row fade-up" data-tags="cv,cyber">
+            <a href="project-pages/4-Trust-Aware Federated Learning for Network Intrusion Detection.html"
+              class="absolute inset-0 z-10" aria-label="View Trust-Aware Federated Learning details"></a>
 
-                <div class="project-thumb md:w-64 xl:w-72 md:shrink-0">
-                  <img src="images/intrusion.webp" alt="Neuro Insight" class="w-full h-full object-contain" />
-                </div>
-                <div class="p-6 lg:p-5 xl:p-8 flex flex-col justify-center flex-1">
-                  <div class="flex items-start justify-between gap-4 mb-1">
-                    <h3 class="font-display text-xl md:text-2xl" style="color:var(--text-primary);">Trust-Aware
-                      Federated Learning for Network Intrusion Detection</h3>
-
-                    <a href="https://github.com/Usman-Khan707/Trust-Aware-Federated-Learning-for-Network-Intrusion-Detection/blob/main/federated-learning-for-network-intrusion-detection.ipynb"
-                      target="_blank" rel="noopener" class="code-btn shrink-0 relative z-20" title="View Source Code">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                          d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.33 3.3 1.23a11.38 11.38 0 016 0c2.28-1.56 3.29-1.23 3.29-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 01.82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
-                      </svg>
-                      Code
-                    </a>
-                  </div>
-
-                  <p class="text-xs font-semibold mb-3 relative z-0 tracking-wide" style="color:var(--accent);">
-                    Muhammad Usman Khan<sup>1</sup>
-                  </p>
-
-                  <p class="text-sm leading-relaxed mb-5 relative z-0" style="color:var(--text-secondary);">
-                    A privacy-preserving intrusion detection system built with Federated Learning, a Dual-Head
-                    Autoencoder, and a lightweight A/R/C trust gating mechanism
-                    including zero-day and poisoning attack scenarios.
-                  </p>
-
-                  <div class="flex flex-wrap gap-2 mt-auto relative z-0">
-                    <span class="tag">Federated Learning</span>
-                    <span class="tag">AI in Cyber security</span>
-                    <span class="tag">Intrusion detection</span>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="project-card relative flex flex-col md:flex-row xl:flex-row fade-up" data-tags="cv,mi">
-                <a href="project-pages/2-brain-tumor-segmentation.html" class="absolute inset-0 z-10"
-                  aria-label="View Brain Tumor Segmentation details"></a>
-
-                <div class="project-thumb md:w-64 xl:w-72 md:shrink-0">
-                  <img src="images/comparison.webp" alt="Neuro Insight" class="w-full h-full object-contain" />
-                </div>
-                <div class="p-6 lg:p-5 xl:p-8 flex flex-col justify-center flex-1">
-                  <div class="flex items-start justify-between gap-4 mb-1">
-                    <h3 class="font-display text-xl md:text-2xl" style="color:var(--text-primary);">Brain Tumor
-                      Segmentation using Attention-UNet</h3>
-
-                    <a href="https://github.com/Usman-Khan707" target="_blank" rel="noopener"
-                      class="code-btn shrink-0 relative z-20" title="View Source Code">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                          d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.33 3.3 1.23a11.38 11.38 0 016 0c2.28-1.56 3.29-1.23 3.29-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 01.82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
-                      </svg>
-                      Code
-                    </a>
-                  </div>
-
-                  <p class="text-xs font-semibold mb-3 relative z-0 tracking-wide" style="color:var(--accent);">
-                    Muhammad Usman Khan<sup>1</sup>, Dr. Eid Rehman<sup>2</sup>
-                  </p>
-
-                  <p class="text-sm leading-relaxed mb-5 relative z-0" style="color:var(--text-secondary);">
-                    Precise multi-class brain tumor segmentation using Attention-UNet on the BraTS 2019 dataset, fully
-                    integrated into the Neuro Insight clinical application
-                  </p>
-
-                  <div class="flex flex-wrap gap-2 mt-auto relative z-0">
-                    <span class="tag">Computer Vision</span>
-                    <span class="tag">Medical Imaging</span>
-                  </div>
-                </div>
-              </div>
-
+            <div class="project-thumb md:w-64 xl:w-72 md:shrink-0">
+              <img src="images/intrusion.webp" alt="Neuro Insight" class="w-full h-full object-contain" />
             </div>
+            <div class="p-6 lg:p-5 xl:p-8 flex flex-col justify-center flex-1">
+              <div class="flex items-start justify-between gap-4 mb-1">
+                <h3 class="font-display text-xl md:text-2xl" style="color:var(--text-primary);">Trust-Aware
+                  Federated Learning for Network Intrusion Detection</h3>
+
+                <div class="flex gap-2 shrink-0 relative z-20">
+                  <a href="project-pages/4-Trust-Aware Federated Learning for Network Intrusion Detection.html"
+                    class="project-btn" title="View Project Page">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:16px;height:16px;">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 0l3-3m-3 3l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Project
+                  </a>
+                  <a href="https://github.com/Usman-Khan707" target="_blank" rel="noopener"
+                    class="code-btn" title="View Source Code">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path
+                        d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.33 3.3 1.23a11.38 11.38 0 016 0c2.28-1.56 3.29-1.23 3.29-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 01.82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
+                    </svg>
+                    Code
+                  </a>
+                </div>
+              </div>
+
+              <p class="text-xs font-semibold mb-3 relative z-0 tracking-wide" style="color:var(--accent);">
+                Muhammad Usman Khan<sup>1</sup>
+              </p>
+
+              <p class="text-sm leading-relaxed mb-5 relative z-0" style="color:var(--text-secondary);">
+                A privacy-preserving intrusion detection system built with Federated Learning, a Dual-Head
+                Autoencoder, and a lightweight A/R/C trust gating mechanism
+                including zero-day and poisoning attack scenarios.
+              </p>
+
+              <div class="flex flex-wrap gap-2 mt-auto relative z-0">
+                <span class="tag">Federated Learning</span>
+                <span class="tag">AI in Cyber security</span>
+                <span class="tag">Intrusion detection</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══ CARD 4: Brain Tumor Segmentation ═══ -->
+          <div class="project-card relative flex flex-col md:flex-row xl:flex-row fade-up" data-tags="cv,mi">
+            <a href="project-pages/2-brain-tumor-segmentation.html" class="absolute inset-0 z-10"
+              aria-label="View Brain Tumor Segmentation details"></a>
+
+            <div class="project-thumb md:w-64 xl:w-72 md:shrink-0">
+              <img src="images/comparison.webp" alt="Neuro Insight" class="w-full h-full object-contain" />
+            </div>
+            <div class="p-6 lg:p-5 xl:p-8 flex flex-col justify-center flex-1">
+              <div class="flex items-start justify-between gap-4 mb-1">
+                <h3 class="font-display text-xl md:text-2xl" style="color:var(--text-primary);">Brain Tumor
+                  Segmentation using Attention-UNet</h3>
+
+                <div class="flex gap-2 shrink-0 relative z-20">
+                  <a href="project-pages/2-brain-tumor-segmentation.html"
+                    class="project-btn" title="View Project Page">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:16px;height:16px;">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 0l3-3m-3 3l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Project
+                  </a>
+                  <a href="https://github.com/Usman-Khan707" target="_blank" rel="noopener"
+                    class="code-btn" title="View Source Code">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path
+                        d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.33 3.3 1.23a11.38 11.38 0 016 0c2.28-1.56 3.29-1.23 3.29-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 01.82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
+                    </svg>
+                    Code
+                  </a>
+                </div>
+              </div>
+
+              <p class="text-xs font-semibold mb-3 relative z-0 tracking-wide" style="color:var(--accent);">
+                Muhammad Usman Khan<sup>1</sup>, Dr. Eid Rehman<sup>2</sup>
+              </p>
+
+              <p class="text-sm leading-relaxed mb-5 relative z-0" style="color:var(--text-secondary);">
+                Precise multi-class brain tumor segmentation using Attention-UNet on the BraTS 2019 dataset, fully
+                integrated into the Neuro Insight clinical application
+              </p>
+
+              <div class="flex flex-wrap gap-2 mt-auto relative z-0">
+                <span class="tag">Computer Vision</span>
+                <span class="tag">Medical Imaging</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </section>
 
       <footer class="px-5 lg:px-0 pb-10">
@@ -595,16 +631,10 @@
     /* ─── LOADING SCREEN LOGIC ─── */
     window.addEventListener('load', () => {
       const loader = document.getElementById('page-loader');
-
-      // Ensure all initial rendering is caught up before hiding
       setTimeout(() => {
         loader.style.opacity = '0';
         document.body.classList.remove('overflow-hidden');
-
-        // Fully remove the loader from DOM after transition
-        setTimeout(() => {
-          loader.remove();
-        }, 700);
+        setTimeout(() => { loader.remove(); }, 700);
       }, 150);
     });
 
@@ -614,11 +644,7 @@
     const toggleMobile = document.getElementById('themeToggleMobile');
 
     function setDark(dark) {
-      if (dark) {
-        html.classList.add('dark');
-      } else {
-        html.classList.remove('dark');
-      }
+      if (dark) { html.classList.add('dark'); } else { html.classList.remove('dark'); }
       [toggleDesktop, toggleMobile].forEach(t => {
         if (t) t.setAttribute('aria-checked', dark ? 'true' : 'false');
       });
@@ -626,16 +652,11 @@
     }
 
     const stored = localStorage.getItem('theme');
-    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      setDark(true);
-    }
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) { setDark(true); }
 
     [toggleDesktop, toggleMobile].forEach(t => {
       if (!t) return;
-      t.addEventListener('click', (e) => {
-        e.stopPropagation();
-        setDark(!html.classList.contains('dark'));
-      });
+      t.addEventListener('click', (e) => { e.stopPropagation(); setDark(!html.classList.contains('dark')); });
       t.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setDark(!html.classList.contains('dark')); }
       });
@@ -669,25 +690,17 @@
       for (let i = 0; i < 45; i++) {
         const star = document.createElement('div');
         star.classList.add('star');
-
         const colorClass = starColors[Math.floor(Math.random() * starColors.length)];
         star.classList.add(colorClass);
-
         const x = Math.random() * 100;
         const y = Math.random() * 100;
         const size = Math.random() * 2 + 1;
         const duration = Math.random() * 4 + 2;
         const delay = Math.random() * 5;
-
         Object.assign(star.style, {
-          left: `${x}vw`,
-          top: `${y}vh`,
-          width: `${size}px`,
-          height: `${size}px`,
-          animationDuration: `${duration}s`,
-          animationDelay: `${delay}s`
+          left: `${x}vw`, top: `${y}vh`, width: `${size}px`, height: `${size}px`,
+          animationDuration: `${duration}s`, animationDelay: `${delay}s`
         });
-
         starCanvas.appendChild(star);
       }
     }
@@ -699,20 +712,14 @@
     function createMeteor() {
       const meteor = document.createElement('div');
       meteor.classList.add('meteor');
-
       const length = Math.random() * 80 + 80;
       const x = Math.random() * (window.innerWidth + 800);
       const delay = Math.random() * 6;
       const duration = Math.random() * 4.0 + 4.5;
-
       Object.assign(meteor.style, {
-        left: x + 'px',
-        top: '-100px',
-        height: length + 'px',
-        animationDelay: delay + 's',
-        animationDuration: duration + 's',
+        left: x + 'px', top: '-100px', height: length + 'px',
+        animationDelay: delay + 's', animationDuration: duration + 's',
       });
-
       meteorCanvas.appendChild(meteor);
     }
 
@@ -733,16 +740,12 @@
       tab.addEventListener('click', () => {
         tabs.forEach((t) => t.classList.remove('active'));
         tab.classList.add('active');
-
         const filter = tab.dataset.filter;
-
         cards.forEach((card) => {
           const tags = card.dataset.tags.split(',');
           if (filter === 'all' || tags.includes(filter)) {
             card.style.display = '';
-            requestAnimationFrame(() => {
-              card.classList.add('visible');
-            });
+            requestAnimationFrame(() => { card.classList.add('visible'); });
           } else {
             card.classList.remove('visible');
             card.style.display = 'none';
@@ -755,9 +758,7 @@
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
+          if (entry.isIntersecting) { entry.target.classList.add('visible'); }
         });
       },
       { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
